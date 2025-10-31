@@ -72,7 +72,7 @@ fertilizer$Value <- as.numeric(gsub(",", "", fertilizer$Value))
 # ?pivot_wider
 ```
 
-## Topic: Explore Fertilizer Use in Strawberry Cultivation. 
+## Topic: Explore Fertilizer Use in Strawberry Cultivation.
 
 Exploratory Questions:
 
