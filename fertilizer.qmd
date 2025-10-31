@@ -79,7 +79,7 @@ Exploratory Questions:
 1.  Why is fertilizer important?
     -   <https://www.yara.com/knowledge-grows/five-important-facts-about-fertilizers/>
 
-        -   Nitrogen fertilizer was created by Sam Eyde and Kristian Birkeland in December of 1905. This has changed agriculture and contributed to the high crop yields of today. The possibility of feeding the growing population of the world is thanks to fertilizer improvements. The critical plant nutrients are the macronutrients nitrogen, phosphorus, potassium, calcium, sulphur, magnesium, oxygen, hydrogen, carbon, and the micronutrients iron, boron, chlorine, manganese, zinc, copper, molybdenum and nickel. Planting crops depletes the soil, and the fertilizers replenish them to ensure that future crops have a good foundation for growth.
+        -   Nitrogen fertilizer was created by Sam Eyde and Kristian Birkeland in December of 1905. This has changed agriculture and contributed to the high crop yields of today. The possibility of feeding the growing population of the world is thanks to fertilizer improvements. The critical plant nutrients are the macro nutrients nitrogen, phosphorus, potassium, calcium, sulphur, magnesium, oxygen, hydrogen, carbon, and the micro nutrients iron, boron, chlorine, manganese, zinc, copper, molybdenum and nickel. Planting crops depletes the soil, and the fertilizers replenish them to ensure that future crops have a good foundation for growth.
 
         -   "The most common sources of nutrients in mineral fertilizers are nitrogen, potassium and phosphate."
 2.  What are the most used fertilizers by state, based on the data set?
