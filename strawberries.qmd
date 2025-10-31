@@ -7,7 +7,7 @@ editor: visual
 # Strawberries
 
 ```{r}
-#| label: load libraries and set options
+#| label: load libraries and set options 
 #| warning: false
 #| message: false
 #| echo: false
