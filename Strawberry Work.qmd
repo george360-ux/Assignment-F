@@ -1,10 +1,11 @@
 ---
 title: "Strawberry Data Analysis"
 author: "MML"
-format: html
+format: 
+  html:
+    embed-resources: true
 editor: visual
 ---
-
 
 ```{r}
 #| label: load libraries and set options
@@ -25,21 +26,37 @@ source("Functions.R")
 
 ## Where do strawberries come from in the USA?
 
-When you go the market and look in the produce section, you see all sorts of fruits and vegetables, but do you ever stop to think about where they are coming from or the farming process that got them there? Here we will specifically look at the production of strawberries in the United States.
+When you go the market and look in the produce section, you see all sorts of fruits and vegetables, but do you ever stop to think about where they are coming from or the farming process that got them there for you to purchase and consume? Here we will specifically look at the production of strawberries in the United States.
 
 The United States Department of Agriculture (USDA) collects census and survey data regularly on all of the major crops grown in the United States. To analyze the strawberry crop, we will look at data collected by the USDA through census' and surveys from 1997 to 2025. We will focus on the six states that produce the majority of the strawberries consumed: California, Florida, Washington, Oregon, North Carolina and New York.
 
 Main data source: [USDA Quickstats](https://quickstats.nass.usda.gov/)
 
-## What fertilizers are being used in strawberry farming? 
+## What fertilizers are being used in strawberry farming?
 
-My group was asked to research fertilizer use on strawberry crops. We sourced some data to analyze this from the same USDA database above. The four fertilizers that the USDA collected data about are: Nitrogen, Phosphate, Potash and Sulfur. Nitrogen is helpful to support green, leafy growth. Phosphate helps the root, flower and fruit development. Potash (or potassium) helps a plant's stress tolerance and disease resistance. Sulfur helps a overall plant health and enzyme and nutrient metabolism. These are all important nutrients for healthy plant growth, along with others. 
+Fertilizer is an important element in the farming process because just like humans, plants need essential nutrients to thrive. Think of fertilizer like a multivitamin for humans. The most important nutrients for plants are carbon, hydrogen, and oxygen. Plants get these from air and water. The others are obtained from soil, but sometimes the soil isn't naturally nutrient dense or has been farmed many times and the plants need supplemental nutrients. The primary macro nutrients plants need are nitrogen, phosphorus, and potassium. The secondary macro nutrients for plants are sulfur, calcium, and magnesium. Plants also have a need for further micro nutrients, but for this research, we will focus on a few of the macro nutrients. 
+
+We sourced some data to analyze use of fertilizer on strawberry crops from the same USDA database above. The four nutrient fertilizers that the USDA collected data about are: Nitrogen, Phosphate, Potash and Sulfur. Nitrogen is helpful to support green, leafy growth. Phosphate helps the root, flower and fruit development. Potash (or potassium) helps a plant's stress tolerance and disease resistance. Sulfur helps a overall plant health and enzyme and nutrient metabolism. These are  important macro nutrients for healthy plant growth, along with others.
+
+## What constitutes organic produce? 
+
+For a crop to be considered organic, there are certain conditions that need to be followed by the farmers. This means farmers cannot use certain typical farming practices used to grow conventional products. Farmers cannot use inorganic fertilizers, genetic engineering, or radiation on their products. 
+
+For a product to have the USDA Organic seal, the product must have more than 95% certified organic ingredients. One of the biggest differences is organic produce is exposed to less toxic pesticides and chemicals during the growing process. 
+
+Source: https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/in-depth/organic-food/art-20043880
 
 ## Are these fertilizers used on conventional and/or organic strawberries?
 
-Since all four of these nutrients are key for crop growth, they are used by farmers growing conventional and organic strawberries. However, the source of the fertilizer differs because there are organic and inorganic fertilizers. 
+Since all four of these nutrients are essential for crop growth, they are used by farmers growing conventional and organic strawberries. However, the source of the fertilizer differs because there are organic and inorganic fertilizers. 
 
-(Need to add more on this... just haven't finished the research yet)
+Inorganic fertilizers are typically manufactured, water-soluble products and are not carbon based. They generally tend to be cheaper due to their manufacturing process and have easy calculations to determine application rate. Depending on the form of the fertilizer, you can also but liquid fertilizer for quick absorption or slow-release forms of fertilizer for a release of nutrients over time. One of the negatives to inorganic fertilizer is some of the synthetic compounds used can cause environmental harm through leaching or runoff. 
+
+Organic fertilizers are typically derived from living organisms and are carbon-based. Some fertilizers might be derived from fish emulsion or blood meal as the base. Since they are derived from these living organisms, organic fertilizers are generally more expensive and considered to be slow-release. This is because the soil needs a couple of days to weeks to transform the organic nutrients into a form the plants can more readily absorb. Because of this, it can be difficult to calculate application rates with precision. One of the negatives of organic fertilizer is that it may contain weeds or pathogens, like Salmonella, since both can be found in the various living organisms that the fertilizer is derived from. 
+
+While choice of fertilizer is important, it is still recommended to add other organic materials to help support the soil, specifically carbon-based materials like compost or grass clippings. Items like these or other ground cover can help plants receive the other macro and micro nutrients needs for healthy growth. 
+
+Source: https://extension.umn.edu/manage-soil-nutrients/quick-guide-fertilizing-plants#:~:text=Plants%20lacking%20nitrogen%20will%20show,moisture%2C%20or%20damage%20to%20roots.
 
 
 ## Data Cleaning Steps
@@ -111,7 +128,7 @@ Once we've split the data, the census data is ready to pivot so that each row re
 ```{r}
 #| label: pivot strawb_census wider 
 
-strawb_census <- strawb_census %>%
+strawb_census_wide <- strawb_census %>%
   pivot_wider(
     id_cols = c(Year, State),          # Columns that uniquely identify each new wide row
     names_from = `Data Item`,          # Column whose values will become the new column names
@@ -136,7 +153,7 @@ strawb_survey <- strawb_survey %>%
 
 ```
 
-Now, let's split the survey data up into the data from each of the six states and look at each state separately. For most of the states, we will remove the `Week Ending` column and the `State ANSI` column as they would be removed by the drop one value column function. I also wrote a function to drop duplicate rows since sometimes everything is the same except the period, which differs as "year" to "marketing year". This function will be run on each state's data set. Below we can clean New York, Washington, and Oregon with little effort. 
+Now, let's split the survey data up into the data from each of the six states and look at each state separately. For most of the states, we will remove the `Week Ending` column and the `State ANSI` column as they would be removed by the drop one value column function. I also wrote a function to drop duplicate rows since sometimes everything is the same except the period, which differs as "year" to "marketing year". This function will be run on each state's data set. Below we can clean New York, Washington, and Oregon with little effort.
 
 ```{r}
 #| label: looking at and cleaning New York survey data
@@ -177,8 +194,7 @@ oregon <- drop_duplicate_rows(oregon)
 
 ```
 
-
-North Carolina reported their data in weekly increments for the `Period` column, so we needed to address that and average out the year based on the weeks. 
+North Carolina reported their data in weekly increments for the `Period` column, so we needed to address that and average out the year based on the weeks.
 
 ```{r}
 #| label: looking at and cleaning North Carolina survey data
@@ -202,8 +218,7 @@ ncarolina <- ncarolina %>%
 
 ```
 
-
-California and Florida below ran the drop duplicate rows function and then needed an extra step to remove the monthly data as we are focusing on yearly data. The monthly data was just a further breakdown of the year data that already existed. 
+California and Florida below ran the drop duplicate rows function and then needed an extra step to remove the monthly data as we are focusing on yearly data. The monthly data was just a further breakdown of the year data that already existed.
 
 ```{r}
 #| label: looking at and cleaning California survey data
@@ -241,8 +256,7 @@ florida <- florida %>%
 
 ```
 
-
-Once each state is cleaned up, we can recombine the data into a single data frame and use pivot wider to better analyze the survey data. 
+Once each state is cleaned up, we can recombine the data into a single data frame and use pivot wider to better analyze the survey data.
 
 ```{r}
 #| label: put state survey data back together
@@ -261,7 +275,7 @@ rm(calif, florida, new_york, washington, ncarolina, oregon, states_list)
 ```{r}
 #| label: Pivot wider strawb_survey
 
-strawb_survey <- strawb_survey %>%
+strawb_survey_wide <- strawb_survey %>%
   pivot_wider(
     id_cols = c(Year, State),     # Columns that uniquely identify each new wide row
     names_from = `Data Item`,     # Column whose values will become the new column names
@@ -273,7 +287,7 @@ strawb_survey <- strawb_survey %>%
 
 ## Fertilizer Data for strawberries
 
-We sourced the data from the USDA and first read in the csv file and run the drop one value columns function to remove unnecessary columns from the data. 
+We sourced the data from the USDA and first read in the csv file and run the drop one value columns function to remove unnecessary columns from the data.
 
 ```{r}
 #| label: read in the fertilizer data
@@ -285,8 +299,7 @@ strawb_fertilizers <- read.csv("strawberry_fertilizers.csv")
 strawb_fertilizers <- drop_one_value_col(strawb_fertilizers)
 ```
 
-
-To make sure all the numeric data is useable in analysis, we change the class of the data to numeric rather than characters. 
+To make sure all the numeric data is useable in analysis, we change the class of the data to numeric rather than characters.
 
 ```{r}
 #| label: Convert Value column to numeric
@@ -298,8 +311,7 @@ strawb_fertilizers <- strawb_fertilizers %>%
 
 ```
 
-
-Now let's clean up the columns that will become our column headers. We need to edit the column so we know which fertilizer is being discusses and then edit the `Data Item` column for what procedure is being performed with the designated fertilizer. 
+Now let's clean up the columns that will become our column headers. We need to edit the column so we know which fertilizer is being discusses and then edit the `Data Item` column for what procedure is being performed with the designated fertilizer.
 
 ```{r}
 #| label: Clean up Domain.Category to Fertilizer
@@ -320,13 +332,12 @@ strawb_fertilizers <- strawb_fertilizers %>%
 
 ```
 
-
 Once the character columns are cleaner, we can then pivot wider, so each row represents a single year for the state.
 
 ```{r}
 #| label: pivot fertilizer wider 
 
-strawb_fertilizers <- strawb_fertilizers %>%
+strawb_fertilizers_wide <- strawb_fertilizers %>%
   pivot_wider(
     id_cols = c(Year, State),  # Columns that uniquely identify each new wide row
     names_from = c(Fertilizer, Data.Item), # Columns whose values will become the new column names
@@ -336,7 +347,77 @@ strawb_fertilizers <- strawb_fertilizers %>%
 ```
 
 
-## What can graphs/visuals tell us about this data? 
+
+## Organic Strawberry Data
+
+```{r}
+#| label: read in the data & run drop 1-item columns function on data
+
+strawb_organic <- read.csv("strawb_organic.csv")
+strawb_organic <- drop_one_value_col(strawb_organic)
+
+```
+
+```{r}
+#| label: clean up the columns and class of variables.
+#| warning: false
+
+# Remove other unnecessary columns
+strawb_organic <- strawb_organic %>% 
+  select(-State.ANSI) 
+
+# Converting the Value and CV(%) columns from character into numeric structure.
+strawb_organic <- strawb_organic %>% 
+  mutate(Value = as.numeric(gsub(",", "", strawb_organic$Value))) %>% 
+  mutate(`CV....` = as.numeric(CV....))
+
+```
+
+```{r}
+#| label: Clean-up data item column
+
+# Remove strawberries/organic from the start of every line in Data Item
+strawb_organic$Data.Item <- str_replace(
+  string = strawb_organic$Data.Item,
+  pattern = "^(?:STRAWBERRIES, ORGANIC - |STRAWBERRIES, ORGANIC, )",
+  replacement = ""
+)
+```
+
+```{r}
+#| label: pivot organic wider 
+
+strawb_organic_wide <- strawb_organic %>%
+  pivot_wider(
+    id_cols = c(Year, State),        # Columns that uniquely identify each new wide row
+    names_from = Data.Item,          # Columns whose values will become the new column names
+    values_from = c(Value, CV....)   # Column whose values will fill the new columns
+  )
+
+```
+
+
+
+```{r}
+production_data <- strawb_organic %>%
+  filter(`Data.Item` == "PRODUCTION, MEASURED IN CWT")
+
+ggplot(data = production_data, aes(x = Year, y = Value, color = State)) +
+  geom_line(size = 1) +
+  labs(
+    title = "Organic Strawberry Production (CWT) by State",
+    x = "Year",
+    y = "Production (CWT)",
+    color = "State"
+  ) +
+  theme_minimal() 
+  # Ensures the X-axis years are treated as discrete steps if appropriate
+  #scale_x_continuous(breaks = unique(production_data$Year)) 
+
+```
+
+
+## What can graphs/visuals tell us about this data?
 
 ```{r}
 #| label: graphs with fertilizer data
