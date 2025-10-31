@@ -226,8 +226,7 @@ California and Florida below ran the drop duplicate rows function and then neede
 # Filter for CA and remove unneeded columns
 calif <- strawb_survey %>% 
   filter(State == "CALIFORNIA") %>% 
-  select(-`Week Ending`, -`State ANSI`) %>% 
-  filter(!str_detect(Period, "FORECAST")) 
+  select(-`Week Ending`, -`State ANSI`) 
 
 # Run function to remove duplicate rows
 calif <- drop_duplicate_rows(calif)
@@ -244,8 +243,7 @@ calif <- calif %>%
 # Filter for FL and remove unneeded columns
 florida <- strawb_survey %>% 
   filter(State == "FLORIDA") %>% 
-  select(-`Week Ending`, -`State ANSI`) %>% 
-  filter(!str_detect(Period, "FORECAST")) 
+  select(-`Week Ending`, -`State ANSI`) 
 
 # Run function to remove duplicate rows
 florida <- drop_duplicate_rows(florida)
@@ -268,7 +266,7 @@ states_list <- list(new_york, oregon, ncarolina, calif, florida, washington)
 strawb_survey <- rbindlist(states_list)
 
 # Clean up the environment
-rm(calif, florida, new_york, washington, ncarolina, oregon, states_list)
+rm(states_list)
 
 ```
 
