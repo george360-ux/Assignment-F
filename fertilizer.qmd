@@ -36,7 +36,7 @@ fertilizer$Data.Item <- fertilizer$Data.Item |>
 
 fertilizer$Value <- str_replace(fertilizer$Value, "(D)", "NA")
 
-#unique(fertilizer$State)
+unique(fertilizer$State)
 
 fertilizer <- fertilizer |> 
   separate("Data.Item", 
