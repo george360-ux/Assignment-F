@@ -11,9 +11,6 @@ fertilizer <- read.csv("strawberry_fertilizers.csv")
 strawberry <-  read.csv("strawberry_10oct25.csv")
 ```
 
-
 ```{r}
 
 ```
-
-
