@@ -34,30 +34,29 @@ Main data source: [USDA Quickstats](https://quickstats.nass.usda.gov/)
 
 ## What fertilizers are being used in strawberry farming?
 
-Fertilizer is an important element in the farming process because just like humans, plants need essential nutrients to thrive. Think of fertilizer like a multivitamin for humans. The most important nutrients for plants are carbon, hydrogen, and oxygen. Plants get these from air and water. The others are obtained from soil, but sometimes the soil isn't naturally nutrient dense or has been farmed many times and the plants need supplemental nutrients. The primary macro nutrients plants need are nitrogen, phosphorus, and potassium. The secondary macro nutrients for plants are sulfur, calcium, and magnesium. Plants also have a need for further micro nutrients, but for this research, we will focus on a few of the macro nutrients. 
+Fertilizer is an important element in the farming process because just like humans, plants need essential nutrients to thrive. Think of fertilizer like a multivitamin for humans. The most important nutrients for plants are carbon, hydrogen, and oxygen. Plants get these from air and water. The others are obtained from soil, but sometimes the soil isn't naturally nutrient dense or has been farmed many times and the plants need supplemental nutrients. The primary macro nutrients plants need are nitrogen, phosphorus, and potassium. The secondary macro nutrients for plants are sulfur, calcium, and magnesium. Plants also have a need for further micro nutrients, but for this research, we will focus on a few of the macro nutrients.
 
-We sourced some data to analyze use of fertilizer on strawberry crops from the same USDA database above. The four nutrient fertilizers that the USDA collected data about are: Nitrogen, Phosphate, Potash and Sulfur. Nitrogen is helpful to support green, leafy growth. Phosphate helps the root, flower and fruit development. Potash (or potassium) helps a plant's stress tolerance and disease resistance. Sulfur helps a overall plant health and enzyme and nutrient metabolism. These are  important macro nutrients for healthy plant growth, along with others.
+We sourced some data to analyze use of fertilizer on strawberry crops from the same USDA database above. The four nutrient fertilizers that the USDA collected data about are: Nitrogen, Phosphate, Potash and Sulfur. Nitrogen is helpful to support green, leafy growth. Phosphate helps the root, flower and fruit development. Potash (or potassium) helps a plant's stress tolerance and disease resistance. Sulfur helps a overall plant health and enzyme and nutrient metabolism. These are important macro nutrients for healthy plant growth, along with others.
 
-## What constitutes organic produce? 
+## What constitutes organic produce?
 
-For a crop to be considered organic, there are certain conditions that need to be followed by the farmers. This means farmers cannot use certain typical farming practices used to grow conventional products. Farmers cannot use inorganic fertilizers, genetic engineering, or radiation on their products. 
+For a crop to be considered organic, there are certain conditions that need to be followed by the farmers. This means farmers cannot use certain typical farming practices used to grow conventional products. Farmers cannot use inorganic fertilizers, genetic engineering, or radiation on their products.
 
-For a product to have the USDA Organic seal, the product must have more than 95% certified organic ingredients. One of the biggest differences is organic produce is exposed to less toxic pesticides and chemicals during the growing process. 
+For a product to have the USDA Organic seal, the product must have more than 95% certified organic ingredients. One of the biggest differences is organic produce is exposed to less toxic pesticides and chemicals during the growing process.
 
 Source: https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/in-depth/organic-food/art-20043880
 
 ## Are these fertilizers used on conventional and/or organic strawberries?
 
-Since all four of these nutrients are essential for crop growth, they are used by farmers growing conventional and organic strawberries. However, the source of the fertilizer differs because there are organic and inorganic fertilizers. 
+Since all four of these nutrients are essential for crop growth, they are used by farmers growing conventional and organic strawberries. However, the source of the fertilizer differs because there are organic and inorganic fertilizers.
 
-Inorganic fertilizers are typically manufactured, water-soluble products and are not carbon based. They generally tend to be cheaper due to their manufacturing process and have easy calculations to determine application rate. Depending on the form of the fertilizer, you can also but liquid fertilizer for quick absorption or slow-release forms of fertilizer for a release of nutrients over time. One of the negatives to inorganic fertilizer is some of the synthetic compounds used can cause environmental harm through leaching or runoff. 
+Inorganic fertilizers are typically manufactured, water-soluble products and are not carbon based. They generally tend to be cheaper due to their manufacturing process and have easy calculations to determine application rate. Depending on the form of the fertilizer, you can also but liquid fertilizer for quick absorption or slow-release forms of fertilizer for a release of nutrients over time. One of the negatives to inorganic fertilizer is some of the synthetic compounds used can cause environmental harm through leaching or runoff.
 
-Organic fertilizers are typically derived from living organisms and are carbon-based. Some fertilizers might be derived from fish emulsion or blood meal as the base. Since they are derived from these living organisms, organic fertilizers are generally more expensive and considered to be slow-release. This is because the soil needs a couple of days to weeks to transform the organic nutrients into a form the plants can more readily absorb. Because of this, it can be difficult to calculate application rates with precision. One of the negatives of organic fertilizer is that it may contain weeds or pathogens, like Salmonella, since both can be found in the various living organisms that the fertilizer is derived from. 
+Organic fertilizers are typically derived from living organisms and are carbon-based. Some fertilizers might be derived from fish emulsion or blood meal as the base. Since they are derived from these living organisms, organic fertilizers are generally more expensive and considered to be slow-release. This is because the soil needs a couple of days to weeks to transform the organic nutrients into a form the plants can more readily absorb. Because of this, it can be difficult to calculate application rates with precision. One of the negatives of organic fertilizer is that it may contain weeds or pathogens, like Salmonella, since both can be found in the various living organisms that the fertilizer is derived from.
 
-While choice of fertilizer is important, it is still recommended to add other organic materials to help support the soil, specifically carbon-based materials like compost or grass clippings. Items like these or other ground cover can help plants receive the other macro and micro nutrients needs for healthy growth. 
+While choice of fertilizer is important, it is still recommended to add other organic materials to help support the soil, specifically carbon-based materials like compost or grass clippings. Items like these or other ground cover can help plants receive the other macro and micro nutrients needs for healthy growth.
 
-Source: https://extension.umn.edu/manage-soil-nutrients/quick-guide-fertilizing-plants#:~:text=Plants%20lacking%20nitrogen%20will%20show,moisture%2C%20or%20damage%20to%20roots.
-
+Source: https://extension.umn.edu/manage-soil-nutrients/quick-guide-fertilizing-plants#:\~:text=Plants%20lacking%20nitrogen%20will%20show,moisture%2C%20or%20damage%20to%20roots.
 
 ## Data Cleaning Steps
 
@@ -344,8 +343,6 @@ strawb_fertilizers_wide <- strawb_fertilizers %>%
 
 ```
 
-
-
 ## Organic Strawberry Data
 
 ```{r}
@@ -394,8 +391,6 @@ strawb_organic_wide <- strawb_organic %>%
 
 ```
 
-
-
 ```{r}
 production_data <- strawb_organic %>%
   filter(`Data.Item` == "PRODUCTION, MEASURED IN CWT")
@@ -413,7 +408,6 @@ ggplot(data = production_data, aes(x = Year, y = Value, color = State)) +
   #scale_x_continuous(breaks = unique(production_data$Year)) 
 
 ```
-
 
 ## What can graphs/visuals tell us about this data?
 
