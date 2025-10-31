@@ -24,7 +24,7 @@ source("Functions.R")
 
 ```
 
-## Where do strawberries come from in the USA?
+## Intro
 
 When you go the market and look in the produce section, you see all sorts of fruits and vegetables, but do you ever stop to think about where they are coming from or the farming process that got them there for you to purchase and consume? Here we will specifically look at the production of strawberries in the United States.
 

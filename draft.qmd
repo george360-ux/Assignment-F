@@ -212,7 +212,7 @@ unique(fert_clean$data_item)
 
 ```
 
-# Exploratory Data Analysis 
+# Exploratory Data Analysis
 
 Overview of Fertilizer Types
 
@@ -277,6 +277,9 @@ Sources to be cited:
 -   Soil Science Society of America. *Nutrient Management and Environmental Impact.*
 
 -   UC Davis Extension. *Fertilizer Management in Berry Production.*
+
+
+
 
 **DATA CLEAN REDO**
 
