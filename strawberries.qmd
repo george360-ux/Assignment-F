@@ -1,0 +1,18 @@
+---
+title: "strawberries report"
+format: html
+editor: visual
+---
+
+# Strawberries
+
+```{r}
+fertilizer <- read.csv("strawberry_fertilizers.csv") 
+```
+
+
+```{r}
+
+```
+
+
