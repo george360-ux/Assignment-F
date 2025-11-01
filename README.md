@@ -1,4 +1,4 @@
-# U.S. Strawberry Production, Organic Vs. Conventinal by State: Fertilizer Use 
+# U.S. Strawberry Production, Organic Vs. Conventinal by State: Fertilizer Use
 
 The project analyzes US strawberry production using USDA agricultural data, with a focus on:
 
