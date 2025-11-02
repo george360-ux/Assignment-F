@@ -1,4 +1,4 @@
-# U.S. Strawberry Production, Organic Vs. Conventinal by State: Fertilizer Use
+# U.S. Strawberry Production, Organic Vs. Conventional by State: Fertilizer Use
 
 The project analyzes US strawberry production using USDA agricultural data, with a focus on:
 
@@ -8,23 +8,23 @@ The project analyzes US strawberry production using USDA agricultural data, with
 
 -   Cleaning and tidying USDA survey and census datasets
 
--   Identifying trends in nitrogen, phosphate, potash and sulfur use
+-   Identifying trends in nitrogen, phosphate, potash, and sulfur use
 
-The goal is to understand agricultural practices in strawberry production and explore differences that align with conventional vs. organic systems.
+The goal is to understand agricultural practices in strawberry production and explore the differences between conventional and organic systems.
 
 ## Objectives
 
-1.  Build a clean and analysis ready dataset from a raw USDA public data
+1.  Build a clean and analysis ready dataset from the raw USDA public data
 
-2.  Compare production reporting from USDA survery vs. census programs
+2.  Compare production reporting from the USDA survey vs. census programs
 
 3.  Create visuals for analyzing fertilizer use metrics
 
-4.  Explore indicators of orgnaic vs. conventional practices
+4.  Explore indicators of organic vs. conventional practices
 
 ## Key Methods
 
--   Remove single value columns
+-   Remove single-value columns
 
 -   Convert numeric strings to a numeric format
 
@@ -40,4 +40,4 @@ The goal is to understand agricultural practices in strawberry production and ex
 
 -   Fertilizer trends over the years
 
-The skills learned to complete the final report were data cleaning and wrangling using R packages (dplytr, stringr, tidyverse, data.table). Government data formats can also be messy and this project reflects on what statisticians work with when giving a data set that needs to be organization in order to begin the analysis.
+The skills learned to complete the final report were data cleaning and wrangling using R packages (dplytr, stringr, tidyverse, data.table). Government data formats can also be messy, and this project reflects on what statisticians work with when giving a data set that needs to be organized to begin the analysis.
