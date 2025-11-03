@@ -18,6 +18,7 @@ library(tidyverse)
 library(stringr)
 library(labelled)
 library(data.table)
+library(scales)
 
 source("Functions.R")
 ```
@@ -167,7 +168,7 @@ strawb_census <- drop_one_value_col(strawb_census)
 
 ```
 
-# Census Data for strawberries
+## Census Data for strawberries
 
 Once we've split the data, the census data is ready to pivot so that each row represents the year for a state and each observation for that year is in a column.
 
@@ -182,7 +183,7 @@ strawb_census_wide <- strawb_census %>%
   )
 ```
 
-# Survey Data for strawberries
+## Survey Data for strawberries
 
 Now that the census data is complete, let's take a look at the survey data.
 
@@ -381,11 +382,10 @@ Once the character columns are cleaner, we can then pivot wider, so each row rep
 
 strawb_fertilizers_wide <- strawb_fertilizers %>%
   pivot_wider(
-    id_cols = c(Year, State),  # Columns that uniquely identify each new wide row
-    names_from = c(Fertilizer, Data.Item), # Columns whose values will become the new column names
-    values_from = Value   # Column whose values will fill the new columns
+    id_cols = c(Year, State), 
+    names_from = c(Fertilizer, Data.Item),
+    values_from = Value
   )
-
 ```
 
 ## Organic Strawberry Data
@@ -395,7 +395,6 @@ strawb_fertilizers_wide <- strawb_fertilizers %>%
 
 strawb_organic <- read.csv("strawb_organic.csv")
 strawb_organic <- drop_one_value_col(strawb_organic)
-
 ```
 
 ```{r}
@@ -429,19 +428,19 @@ strawb_organic$Data.Item <- str_replace(
 
 strawb_organic_wide <- strawb_organic %>%
   pivot_wider(
-    id_cols = c(Year, State),        # Columns that uniquely identify each new wide row
-    names_from = Data.Item,          # Columns whose values will become the new column names
-    values_from = c(Value, CV....)   # Column whose values will fill the new columns
+    id_cols = c(Year, State),       
+    names_from = Data.Item,         
+    values_from = c(Value, CV....)   
   )
-
 ```
 
-# Exploratory Data Analysis
+## Exploratory Data Analysis
 
 Overview of Fertilizer Types
 
 ```{r}
-fert_clean %>%count(fertilizer, sort = TRUE)
+strawb_fertilizers %>%
+  count(Fertilizer, sort = TRUE)
 ```
 
 Nitrogen and Potash appear as the most frequently reported fertilizers, suggesting they are the core components of conventional strawberry farming.
@@ -449,38 +448,88 @@ Nitrogen and Potash appear as the most frequently reported fertilizers, suggesti
 **Geographic Patterns**
 
 ```{r}
-fert_state <- fert_clean %>% 
-  group_by(state, fertilizer) %>% 
-  summarise(mean_value = mean(value, na.rm = T), .groups = "drop")
+fert_state <- strawb_fertilizers %>% 
+  group_by(State, Fertilizer) %>% 
+  summarise(mean_value = mean(Value, na.rm = T), .groups = "drop")
 
-ggplot(fert_state, aes(x = reorder(state, mean_value), y = mean_value, fill = fertilizer)) +
+ggplot(fert_state, aes(x = reorder(State, mean_value), y = mean_value, fill = Fertilizer)) +
   geom_bar(stat = "identity", position = "dodge") +
-  coord_flip() +
   labs(
     title = "Average Fertilizer Use by State",
     x = "State",
     y = "Average Use"
   ) +
-  theme_minimal()
-  
+  theme_minimal()+
+  theme(axis.text.x = element_text(angle = 45, hjust =1), 
+        plot.title = element_text(hjust = 0.5))
 ```
 
-California lead in fertilizer use reflecting their large strawberry industries.
+California leads in fertilizer use, reflecting their large strawberry industries.
 
-```{r}
-fert_clean %>%
-  group_by(year, fertilizer) %>%
-  summarise(mean_value = mean(value, na.rm = TRUE), .groups = "drop") %>%
-  ggplot(aes(x = year, y = mean_value, color = fertilizer)) +
+```{r, warning= FALSE}
+strawb_fertilizers %>%
+  group_by(Year, Fertilizer) %>%
+  summarise(mean_value = mean(Value, na.rm = TRUE), .groups = "drop") %>%
+  ggplot(aes(x = Year, y = mean_value, color = Fertilizer)) +
   geom_line(size = 1.2) +
   geom_point() +
   theme_minimal() +
-  labs(title = "Fertilizer Use Over Time", y = "Average Use", x = "Year")
+  labs(title = "Fertilizer Use Over Time", y = "Average Use", x = "Year") + 
+  theme(plot.title = element_text(hjust = 0.5))
 ```
-
-Phosphate use appears stable across years, but for all fertilizers, there is a spiked trend upwards from mid to late 2010s which could mean some outliers in the data set.
+  
+For all fertilizers, there is a spiked trend upwards from mid to late 2010s which could mean some outliers in the data set.
 
 The data set captures fertilizer usage primarily in conventional strawberry production system where the fertilizers are applied. In contrast, organic strawberry systems rely on nutrient source like composted manure or mineral sulfur rather than synthetic chemicals. This distinction matters because organic fertilizer release nutrients slowly and improve soil health, while conventional systems enable rapid growth but may pose environmental risks such as nitrate leaching and reduced soil biodiversity.
+
+
+```{r, warning = False}
+fert <- strawb_fertilizers %>%
+  filter(Data.Item == " APPLICATIONS, MEASURED IN LB") %>%
+  group_by(Year, State, Fertilizer) %>%
+  summarise(total_value = sum(Value, na.rm = TRUE), .groups = "drop_last") %>%
+  ungroup()
+unique(strawb_fertilizers$Data.Item)
+
+
+fert %>%
+  ggplot(aes(x = Year, y = total_value, color = Fertilizer)) +
+  geom_line(size = 1.2) +
+  geom_point() +
+  facet_wrap(~State, scales = "free_y") +
+  scale_y_continuous(labels = comma) +
+  scale_color_brewer(palette = "Set2") +
+  theme_minimal() +
+  labs(
+    title = "Fertilizer Applications (lb) Over Time by State",
+    y = "Total Fertilizer Use (lb)",
+    x = "Year",
+    color = "Fertilizer Type"
+  ) +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+
+```{r, warning = False}
+fert_prop <- strawb_fertilizers %>%
+  group_by(Year, State, Fertilizer) %>%
+  summarise(total_value = sum(Value, na.rm = TRUE), .groups = "drop_last") %>%
+  mutate(proportion = total_value / sum(total_value)) %>%
+  ungroup()
+
+fert_prop %>%
+  ggplot(aes(x = Year, y = proportion, color = Fertilizer)) +
+  geom_line(size = 1.2) +
+  geom_point() +
+  facet_wrap(~State) +
+  theme_minimal() +
+  labs(
+    title = "Proportion of Fertilizer Use Over Time by State",
+    y = "Proportion of Total Use",
+    x = "Year"
+  ) +
+  theme(plot.title = element_text(hjust = 0.5))
+```
 
 **Conclusion**
 
@@ -496,14 +545,14 @@ This report demonstrates the potential of fertilizer-use data to inform sustaina
 
 Sources to be cited:
 
--   Data source: U.S. Department of Agriculture (USDA). *Strawberry Chemical Use Survey Dataset, 2025.*
+-   U.S. Department of Agriculture (USDA). *Strawberry Chemical Use Survey Dataset,2025.*
 
 -   Soil Science Society of America. *Nutrient Management and Environmental Impact.*
 
 -   UC Davis Extension. *Fertilizer Management in Berry Production.*
 
--   <https://www.yara.com/knowledge-grows/five-important-facts-about-fertilizers/>
+-   Yara: https://www.yara.com/knowledge-grows/five-important-facts-about-fertilizers/
 
--   Source: https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/in-depth/organic-food/art-20043880
+-   Mayo Clinic: https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/in-depth/organic-food/art-20043880
 
--   Source: https://extension.umn.edu/manage-soil-nutrients/quick-guide-fertilizing-plants#:\~:text=Plants%20lacking%20nitrogen%20will%20show,moisture%2C%20or%20damage%20to%20roots.
+-   UMN: https://extension.umn.edu/manage-soil-nutrients/quick-guide-fertilizing-pla     nts#:\~:text=Plants%20lacking%20nitrogen%20will%20show,moisture%2C%20or%20damage     %20to%20roots.
