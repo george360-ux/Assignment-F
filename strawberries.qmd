@@ -1,5 +1,6 @@
 ---
 title: "strawberries report"
+authors:  
 format: html
 editor: visual
 ---
@@ -25,7 +26,13 @@ source("Functions.R")
 
 ## Introduction
 
-Strawberries are one of the most widely cultivated fruit crops in the United States, with production heavily concentrated in states such as California and Florida. To sustain high yields and consistent quality, strawberry growers depend on fertilizers to supply essential plant nutrients. However, fertilizer use also raises important questions about environmental impact, soil health, and sustainability. This project analyzes data on strawberry fertilizer use across US states. The goal is to explore patterns, trends, and potential pros/cons of different fertilizer types, including Nitrogen, Phosphate, Potash, and Sulfur, to understand how these inputs vary by geography and time.
+Strawberries are one of the most widely cultivated fruit crops in the United States, with production heavily concentrated in states such as California and Florida. To sustain high yields and consistent quality, strawberry growers depend on fertilizers to supply essential plant nutrients. However, fertilizer use also raises important questions about environmental impact, soil health, and sustainability.
+
+When you go the market and look in the produce section, you see all sorts of fruits and vegetables, but do you ever stop to think about where they are coming from or the farming process that got them there for you to purchase and consume? Here we will specifically look at the production of strawberries in the United States.
+
+This project analyzes data on strawberry fertilizer use across US states. The United States Department of Agriculture (USDA) collects census and survey data regularly on all of the major crops grown in the United States. To analyze the strawberry crop, we will look at data collected by the USDA through census' and surveys from 1997 to 2025. We will focus on the six states that produce the majority of the strawberries consumed: California, Florida, Washington, Oregon, North Carolina and New York. The goal is to explore patterns, trends, and potential pros/cons of different fertilizer type including Nitrogen, Phosphate, Potash and Sulfur to understand how these inputs vary by geography and time.
+
+Main data source: [USDA Quickstats](https://quickstats.nass.usda.gov/)
 
 We begin by cleaning and structuring the data to ensure technical correctness, then conduct exploratory analyses that focus on:
 
@@ -37,19 +44,11 @@ We begin by cleaning and structuring the data to ensure technical correctness, t
 
 -   Relationships among fertilizer types
 
-The approach follows a structured analytical strategy
+The approach follows a structured analytically strategy
 
 1.  Clean → 2. Explore → 3. Interpret → 4. Report
 
-The purpose of the exploratory data analysis is not to draw a conclusion but to hopefully have a better understanding of how fertilizer use reflects broader management practices in strawberry agriculture. The results can serve as a foundation for future work linking fertilizer management to yield, soil health, and environmental sustainability.
-
-## Intro
-
-When you go to the market and look in the produce section, you see all sorts of fruits and vegetables, but do you ever stop to think about where they are coming from or the farming process that got them there for you to purchase and consume? Here, we will specifically look at the production of strawberries in the United States.
-
-The United States Department of Agriculture (USDA) collects census and survey data regularly on all of the major crops grown in the United States. To analyze the strawberry crop, we will look at data collected by the USDA through censuses and surveys from 1997 to 2025. We will focus on the six states that produce the majority of the strawberries consumed: California, Florida, Washington, Oregon, North Carolina, and New York.
-
-Main data source: [USDA Quickstats](https://quickstats.nass.usda.gov/)
+The purpose of the exploratory data analysis is to not draw conclusion but to hopefully have a better understanding on how fertilizer use reflects broader management practices in strawberry agriculture. The results can serve as a foundation for future work linking fertilizer management to yield, soil health and environmental sustainability.
 
 ## Raw Data and Acquisition
 
@@ -80,7 +79,7 @@ To achieve a technically correct dataset, we implemented a modular cleaning pipe
 
 ## What fertilizers are being used in strawberry farming?
 
-Fertilizer is an important element in the farming process because, just like humans, plants need essential nutrients to thrive. Think of fertilizer like a multivitamin for humans. The most important nutrients for plants are carbon, hydrogen, and oxygen. Plants get these from the air and water. The others are obtained from soil, but sometimes the soil isn't naturally nutrient-dense or has been farmed many times, and the plants need supplemental nutrients. The primary macronutrients plants need are nitrogen, phosphorus, and potassium. The secondary macro nutrients for plants are sulfur, calcium, and magnesium. Plants also require further micro nutrients, but for this research, we will focus on a few of the macro nutrients.
+Fertilizer is an important element in the farming process because, just like humans, plants need essential nutrients to thrive. Think of fertilizer like a multivitamin for humans. The most important nutrients for plants are carbon, hydrogen, and oxygen. Plants get these from the air and water. The others are obtained from soil, but sometimes the soil isn't naturally nutrient-dense or has been farmed many times, and the plants need supplemental nutrients. The primary macro nutrients plants need are nitrogen, phosphorus, and potassium. The secondary macro nutrients for plants are sulfur, calcium, and magnesium. Plants also require further micro nutrients, but for this research, we will focus on a few of the macro nutrients.
 
 We sourced some data to analyze the use of fertilizer on strawberry crops from the same USDA database above. The four nutrient fertilizers that the USDA collected data about are: Nitrogen, Phosphate, Potash, and Sulfur. Nitrogen is helpful to support green, leafy growth. Phosphate helps the root, flower, and fruit development. Potash (or potassium) helps a plant's stress tolerance and disease resistance. Sulfur helps overall plant health and enzyme and nutrient metabolism. These are important macro nutrients for healthy plant growth, along with others.
 
@@ -112,12 +111,15 @@ Nitrogen fertilizer was created by Sam Eyde and Kristian Birkeland in December o
 
 From the fertilizer_state data, we can see that many fertilizers are used equally as often. Nitrogen, Phosphate, and Potash (Potassium) seem to be used an equal number of times across the different states in the data set. This aligns with the information from the Yara website.
 
-## Data Cleaning Steps
+## Data Wrangling Process
 
-First, we read in the data from our USDA source and remove any columns that only have one data value and thus will not be useful in our data analysis.
+#### Cleaning the Conventional Strawberry Data Set
+
+In order to work with the data, we must read the raw csv file from the USDA into R. Here is a glimpse of the raw data set: <br>
 
 ```{r}
-#| label: read in the data & run drop 1-item columns function on data
+#| label: read in the data & run drop 1-item columns function
+#| echo: false
 
 # Read in the csv data file
 strawb <- read_csv("strawberry_10Oct25.csv", col_names = TRUE)
@@ -126,11 +128,12 @@ strawb <- read_csv("strawberry_10Oct25.csv", col_names = TRUE)
 strawb <- drop_one_value_col(strawb)
 ```
 
-Upon first look at the data, we have numeric data. In order to be able to work with the data and perform exploratory analysis, we must convert the data into a numeric structure.
+<br> Now that we've taken a glance at the data, the first step is to remove any columns that are entirely one data value and thus will not be useful to our analysis. This removal of unnecessary columns also makes the rest of the data easier to manage. Next, we analyze what we have left. Upon looking at the data, we have a couple columns of numeric data that are currently character structure. In order to be able to work with the data and perform exploratory analysis, we must make sure the structure of all numeric columns are in the correct format for analysis and manipulation, so we made those changes.
 
 ```{r}
 #| label: Verify the class of columns 
 #| warning: false
+#| echo: false
 
 # Converting the Value and CV(%) columns from character into numeric structure.
 strawb <- strawb %>% 
@@ -139,20 +142,22 @@ strawb <- strawb %>%
 
 ```
 
-The column `Data Item` gives us a lot of information. In order to make it more useful, we will remove the phrases common to all elements of the data set. Thus, it becomes a more informative column about the numeric data values.
+Next, we investigated the `Data Item` column. This column gives us a lot of different information all in one cell. In order to make it more useful, we will remove the phrases common to all elements of the data set. For example, removing the "strawberries - " from the beginning of each line. Thus, it becomes a more informative column about the numeric data values.
 
 ```{r}
 #| label: Clean up Data Item column
+#| echo: false
 
 # Remove strawberries from the start of every line in Data Item
 strawb$`Data Item` <- str_replace(strawb$`Data Item`, "^ST.*IES((\ -\ )|(,\ ))", "")
 
 ```
 
-The data comes from surveys and census'. There are some differences in the data collection that will make it difficult to clean the dataset while it is all together. Here we split the data into separate survey and census data frames for further cleaning.
+In this data set, the data comes from surveys and census'. There are some differences in the data collection for each of those methods that will make it difficult to clean the data set while it is all together. So next, we will split the data into separate survey and census data frames for further cleaning. We also have a separate data set for the organic data.
 
 ```{r}
 #| label: split survey/census & drop all one again
+#| echo: false
 
 # Filter for only the SURVEY data
 strawb_survey <- strawb %>% 
@@ -168,12 +173,13 @@ strawb_census <- drop_one_value_col(strawb_census)
 
 ```
 
-## Census Data for strawberries
+#### Cleaning the Census Portion
 
-Once we've split the data, the census data is ready to pivot so that each row represents the year for a state and each observation for that year is in a column.
+Once we've split the data, the census data didn't need any further cleaning. We also pivoted it to it's wider form to be able to see the data is a more tabular format. In the wide format, each row represents the year's output for a state and each data observation for that year is in a column.
 
 ```{r}
 #| label: pivot strawb_census wider 
+#| echo: false
 
 strawb_census_wide <- strawb_census %>%
   pivot_wider(
@@ -183,14 +189,15 @@ strawb_census_wide <- strawb_census %>%
   )
 ```
 
-## Survey Data for strawberries
+#### Cleaning the Survey Portion
 
-Now that the census data is complete, let's take a look at the survey data.
+The survey data is a bit more complicated because each state has a bit of variability in how they report the information. We will need to further split up the survey data by state. Recall, the states we are looking at are California, Florida, New York, North Carolina, Oregon, and Washington.
 
-The survey data is a bit more complicated because each state has a bit of variability in how they report the information. We will need to split up the survey data by state. Before making that split, some of the values are a forecast for the year, but the year value is also provided. Because of this, if the `Period` column contains the word "forecast" we will remove that line from the data set.
+Before making that split, we chose to remove the rows where the data was a forecast value. The rational behind this was that the actual year value was also provided. After that, we split the survey data up into a data frame for each of the six states and look at each separately.
 
 ```{r}
 #| label: remove "Forecast" rows from the dataset
+#| echo: false
 
 # Remove rows predicting "FORCAST"
 strawb_survey <- strawb_survey %>% 
@@ -198,10 +205,13 @@ strawb_survey <- strawb_survey %>%
 
 ```
 
-Now, let's split the survey data up into the data from each of the six states and look at each state separately. For most of the states, we will remove the `Week Ending` column and the `State ANSI` column as they would be removed by the drop one value column function. I also wrote a function to drop duplicate rows since sometimes everything is the same except the period, which differs as "year" to "marketing year". This function will be run on each state's data set. Below we can clean New York, Washington, and Oregon with little effort.
+For most of the states, we will remove the `Week Ending` column and the `State ANSI` column, as they would be removed by the drop one value column function. We also wrote and used a function to drop duplicate rows. In some of the states, the survey recorded "marketing year" and "year" with the same value. We did not need to keep both rows as they ended up representing the same value.
+
+Cleaning the data sets for New York, Washington, and Oregon were the easiest. We dropped the unnecessary columns and ran the drop duplicate rows function and finished with a clean data set.
 
 ```{r}
 #| label: looking at and cleaning New York survey data
+#| echo: false
 
 # Filter for NY and remove unneeded columns
 new_york <- strawb_survey %>% 
@@ -215,6 +225,7 @@ new_york <- drop_duplicate_rows(new_york)
 
 ```{r}
 #| label: looking at and cleaning Washington survey data
+#| echo: false
 
 # Filter for WA and remove unneeded columns
 washington <- strawb_survey %>% 
@@ -228,6 +239,7 @@ washington <- drop_duplicate_rows(washington)
 
 ```{r}
 #| label: looking at and cleaning Oregon survey data
+#| echo: false
 
 # Filter for OR and remove unneeded columns
 oregon <- strawb_survey %>% 
@@ -239,10 +251,11 @@ oregon <- drop_duplicate_rows(oregon)
 
 ```
 
-North Carolina reported their data in weekly increments for the `Period` column, so we needed to address that and average out the year based on the weeks.
+North Carolina was the only state that reported their data in weekly increments rather than yearly. To address that, we took the sum of all of the weeks in the year and now have a value for the year. This will allow us to compare the data with the other states.
 
 ```{r}
 #| label: looking at and cleaning North Carolina survey data
+#| echo: false
 
 # Filter for NC and remove unneeded columns
 ncarolina <- strawb_survey %>% 
@@ -263,10 +276,11 @@ ncarolina <- ncarolina %>%
 
 ```
 
-California and Florida below ran the drop duplicate rows function and then needed an extra step to remove the monthly data as we are focusing on yearly data. The monthly data was just a further breakdown of the year data that already existed.
+California and Florida began the same way as the rest of the states. They both had extra data on monthly values in addition to yearly values. Since we are mainly looking at yearly values to compare between states, we removed the monthly value rows for better comparisons.
 
 ```{r}
 #| label: looking at and cleaning California survey data
+#| echo: false
 
 # Filter for CA and remove unneeded columns
 calif <- strawb_survey %>% 
@@ -284,6 +298,7 @@ calif <- calif %>%
 
 ```{r}
 #| label: looking at and cleaning Florida survey data
+#| echo: false
 
 # Filter for FL and remove unneeded columns
 florida <- strawb_survey %>% 
@@ -299,10 +314,11 @@ florida <- florida %>%
 
 ```
 
-Once each state is cleaned up, we can recombine the data into a single data frame and use pivot wider to better analyze the survey data.
+Once each state has a clean data set, we can recombine the data into a single data frame for further exploration and also pivot the data wider for visualization in a more tabular format.
 
 ```{r}
 #| label: put state survey data back together
+#| echo: false
 
 # Create a list containing all of them
 states_list <- list(new_york, oregon, ncarolina, calif, florida, washington)
@@ -317,6 +333,7 @@ rm(states_list)
 
 ```{r}
 #| label: Pivot wider strawb_survey
+#| echo: false
 
 strawb_survey_wide <- strawb_survey %>%
   pivot_wider(
@@ -328,78 +345,25 @@ strawb_survey_wide <- strawb_survey %>%
 
 ```
 
-## Fertilizer Data for strawberries
+#### Cleaning the Organic Strawberry Data Set
 
-We sourced the data from the USDA and first read in the csv file and run the drop one value columns function to remove unnecessary columns from the data.
-
-```{r}
-#| label: read in the fertilizer data
-
-# Read in csv file from USDA
-strawb_fertilizers <- read.csv("strawberry_fertilizers.csv") 
-
-# Run the function on the strawberry data
-strawb_fertilizers <- drop_one_value_col(strawb_fertilizers)
-```
-
-To make sure all the numeric data is useable in analysis, we change the class of the data to numeric rather than characters.
+First, we read in a separate .csv file for organic strawberry data. Once the data was read in, we took very similar steps to those taken in cleaning the conventional strawberry data set.
 
 ```{r}
-#| label: Convert Value column to numeric
-#| warning: false
-
-# Convert to numeric
-strawb_fertilizers <- strawb_fertilizers %>% 
-  mutate(Value = as.numeric(gsub(",", "", Value)))
-
-```
-
-Now let's clean up the columns that will become our column headers. We need to edit the column so we know which fertilizer is being discusses and then edit the `Data Item` column for what procedure is being performed with the designated fertilizer.
-
-```{r}
-#| label: Clean up Domain.Category to Fertilizer
-
-# Rename Fertilizer column and clean it up 
-strawb_fertilizers <- strawb_fertilizers %>% 
-  rename(Fertilizer = Domain.Category) %>% 
-  mutate(Fertilizer = sub(".*\\((.*?)\\).*", "\\1", Fertilizer))
-
-```
-
-```{r}
-#| label: Clean up Data.Item column
-
-# Remove strawberries from the start of every line in Data Item
-strawb_fertilizers <- strawb_fertilizers %>% 
-  mutate(Data.Item = str_remove(Data.Item, ".*-")) 
-
-```
-
-Once the character columns are cleaner, we can then pivot wider, so each row represents a single year for the state.
-
-```{r}
-#| label: pivot fertilizer wider 
-
-strawb_fertilizers_wide <- strawb_fertilizers %>%
-  pivot_wider(
-    id_cols = c(Year, State), 
-    names_from = c(Fertilizer, Data.Item),
-    values_from = Value
-  )
-```
-
-## Organic Strawberry Data
-
-```{r}
-#| label: read in the data & run drop 1-item columns function on data
+#| label: read in the organic csv & run drop 1-item columns function on data
+#| echo: false
 
 strawb_organic <- read.csv("strawb_organic.csv")
 strawb_organic <- drop_one_value_col(strawb_organic)
+
 ```
+
+The data had lots of unnecessary columns, so we ran our drop one value columns functions. After that, we made sure to covert the numeric value columns into the correct structure for analysis.
 
 ```{r}
 #| label: clean up the columns and class of variables.
 #| warning: false
+#| echo: false
 
 # Remove other unnecessary columns
 strawb_organic <- strawb_organic %>% 
@@ -412,8 +376,11 @@ strawb_organic <- strawb_organic %>%
 
 ```
 
+The last step in getting the organic data clean is to remove the phrase common to the beginning of every row of the `Data Item` column. Once this is removed, the organic data is ready for analysis.
+
 ```{r}
 #| label: Clean-up data item column
+#| echo: false
 
 # Remove strawberries/organic from the start of every line in Data Item
 strawb_organic$Data.Item <- str_replace(
@@ -425,13 +392,79 @@ strawb_organic$Data.Item <- str_replace(
 
 ```{r}
 #| label: pivot organic wider 
+#| echo: false
 
 strawb_organic_wide <- strawb_organic %>%
   pivot_wider(
-    id_cols = c(Year, State),       
-    names_from = Data.Item,         
-    values_from = c(Value, CV....)   
+    id_cols = c(Year, State),        # Columns that uniquely identify each new wide row
+    names_from = Data.Item,          # Columns whose values will become the new column names
+    values_from = c(Value, CV....)   # Column whose values will fill the new columns
   )
+
+```
+
+#### Cleaning the Fertilizer Data Set
+
+The fertilizer data again came for the USDA in its own .csv file. We began the same as before, reading in the data, running the drop one value columns function to remove unnecessary columns, and changing the numeric value columns to the correct structure for analysis.
+
+```{r}
+#| label: read in the fertilizer data
+#| echo: false
+
+# Read in csv file from USDA
+strawb_fertilizers <- read.csv("strawberry_fertilizers.csv") 
+
+# Run the function on the strawberry data
+strawb_fertilizers <- drop_one_value_col(strawb_fertilizers)
+```
+
+```{r}
+#| label: Convert Value column to numeric
+#| warning: false
+#| echo: false
+
+# Convert to numeric
+strawb_fertilizers <- strawb_fertilizers %>% 
+  mutate(Value = as.numeric(gsub(",", "", Value)))
+
+```
+
+Next, we have a new column compared to the other data sets that tells us the type of fertilizer used. In this column, similar to the `Data Item` column previously, we need to remove some common words to every entry. We will do that to the `Fertilizer` column and again to the `Data Item` column so that it is clean what data value is being collected for each fertilizer type.
+
+Now, all of our data sets are clean and ready for analysis.
+
+```{r}
+#| label: Clean up Domain.Category to Fertilizer
+#| echo: false
+
+# Rename Fertilizer column and clean it up 
+strawb_fertilizers <- strawb_fertilizers %>% 
+  rename(Fertilizer = Domain.Category) %>% 
+  mutate(Fertilizer = sub(".*\\((.*?)\\).*", "\\1", Fertilizer))
+
+```
+
+```{r}
+#| label: Clean up Data.Item column
+#| echo: false
+
+# Remove strawberries from the start of every line in Data Item
+strawb_fertilizers <- strawb_fertilizers %>% 
+  mutate(Data.Item = str_remove(Data.Item, ".*-")) 
+
+```
+
+```{r}
+#| label: pivot fertilizer wider 
+#| echo: false
+
+strawb_fertilizers_wide <- strawb_fertilizers %>%
+  pivot_wider(
+    id_cols = c(Year, State),  # Columns that uniquely identify each new wide row
+    names_from = c(Fertilizer, Data.Item), # Columns whose values will become the new column names
+    values_from = Value   # Column whose values will fill the new columns
+  )
+
 ```
 
 ## Exploratory Data Analysis
@@ -445,28 +478,108 @@ strawb_fertilizers %>%
 
 Nitrogen and Potash appear as the most frequently reported fertilizers, suggesting they are the core components of conventional strawberry farming.
 
+The graphs below show comparisons between conventional and organic strawberry production. The graph shows production over time in years (x-axis). It shows the number of acres harvested by state. The second graph shows the amount of strawberries produced per one hundred pounds.
+
+```{r}
+#| label: production graph conventional
+#| warning: false
+#| echo: false
+
+production_data_c <- strawb_survey %>%
+  filter(`Data Item` == "PRODUCTION, MEASURED IN CWT")
+
+p1 <- ggplot(data = production_data_c, aes(x = Year, y = Value, color = State)) +
+  geom_line(size = 1) +
+  labs(
+    title = "Conventional",
+    x = "Year",
+    y = "Production (per 100 pounds)",
+    color = "State"
+  ) +
+  #facet_wrap(~ State, scales = "free_y", ncol = 2) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    plot.title = element_text(size = 12, hjust = 0.5),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 8) 
+  ) 
+
+```
+
+```{r}
+#| label: production graph organic
+#| warning: false
+#| echo: false
+
+production_data_o <- strawb_organic %>%
+  filter(`Data.Item` == "PRODUCTION, MEASURED IN CWT")
+
+p2 <- ggplot(data = production_data_o, aes(x = Year, y = Value, color = State)) +
+  geom_line(size = 1) +
+  labs(
+    title = "Organic",
+    x = "Year",
+    y = "",
+    color = "State"
+  ) +
+  #facet_wrap(~ State, scales = "free_y", ncol = 2) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 12, hjust = 0.5),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 8)
+  ) 
+
+```
+
+```{r fig.align='center'}
+#| label: production graphs combo
+#| warning: false
+#| echo: false
+
+library(patchwork)
+
+# Combine and add an overall title
+(p1 | p2) + 
+  plot_annotation(title = 'Strawberry Production by State',
+                  theme = theme(plot.title = element_text(hjust = 0.35)))
+
+```
+
+Both of these graphs clearly shows us that California (in red) is the largest producer of conventional and organic strawberries. Florida (in yellow) is the second largest producer, but significantly behind California. The rest of the states have very low production compared to California and Florida.
+
 **Geographic Patterns**
 
 ```{r}
-fert_state <- strawb_fertilizers %>% 
-  group_by(State, Fertilizer) %>% 
-  summarise(mean_value = mean(Value, na.rm = T), .groups = "drop")
+library(ggplot2)
+fert_by_state <- strawb_fertilizers_wide %>%
+  group_by(State) %>%
+  summarise(
+    n_obs = sum(!is.na(`NITROGEN_ APPLICATIONS, MEASURED IN LB`)),  # count valid rows
+    Nitrogen = sum(`NITROGEN_ APPLICATIONS, MEASURED IN LB`, na.rm = TRUE) / n_obs,
+    Phosphate = sum(`PHOSPHATE_ APPLICATIONS, MEASURED IN LB`, na.rm = TRUE) / n_obs,
+    Potash = sum(`POTASH_ APPLICATIONS, MEASURED IN LB`, na.rm = TRUE) / n_obs,
+    Sulfur = sum(`SULFUR_ APPLICATIONS, MEASURED IN LB`, na.rm = TRUE) / n_obs
+  ) %>%
+  select(-n_obs) %>% 
+  pivot_longer(-State, names_to = "Fertilizer", values_to = "Mean_Lb")
 
-ggplot(fert_state, aes(x = reorder(State, mean_value), y = mean_value, fill = Fertilizer)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  labs(
-    title = "Average Fertilizer Use by State",
-    x = "State",
-    y = "Average Use"
+
+ggplot(fert_by_state, aes(x = State, y = Mean_Lb, fill = Fertilizer)) +
+  geom_col(position = "dodge") +
+  labs(title = "Average Fertilizer Use by State",
+       y = "Average Pounds Applied", x = "State") +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(size = 6, angle = 45, hjust = 1)
   ) +
-  theme_minimal()+
-  theme(axis.text.x = element_text(angle = 45, hjust =1), 
-        plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(hjust = 0.5))
 ```
 
-California leads in fertilizer use, reflecting their large strawberry industries.
+The bar chart shows the average use of four fertilizer types—Nitrogen, Phosphate, Potash, and Sulfur—across major U.S. strawberry-producing states. California stands out as the dominant user by a very large margin, applying millions of pounds of each fertilizer, which reflects its role as the country’s largest strawberry producer by far. Florida ranks second, though at a much smaller scale, followed by Oregon, North Carolina, Washington, and New York. Nitrogen and Potash appear to be the most heavily used fertilizers across states, suggesting their key role in boosting plant growth and fruit production. Sulfur is used much less often, likely due to more specific soil needs. This pattern indicates that strawberry cultivation intensity and climate conditions vary significantly across regions, with California’s year-round production driving greater fertilizer demand.
 
-```{r, warning= FALSE}
+Fertilizer plays a vital role in strawberry farming by supplying essential nutrients for plant growth, improving soil fertility, and increasing fruit yield and quality. Nitrogen promotes leafy growth and overall plant vigor but can cause environmental runoff issues if over-applied. Phosphate supports root development and early growth, though excessive use can lead to water pollution. Potash improves fruit size, sweetness, and disease resistance, while Sulfur helps regulate soil pH and supports nutrient uptake. Importantly, organic strawberry farms may also use fertilizers, but they must come from natural sources (e.g., compost, fish emulsion, mined minerals), whereas conventional farms can use synthetic fertilizers. This explains why some fertilizer categories appear across both systems, although organic volumes tend to be lower.
+
+```{r, warning=FALSE}
 strawb_fertilizers %>%
   group_by(Year, Fertilizer) %>%
   summarise(mean_value = mean(Value, na.rm = TRUE), .groups = "drop") %>%
@@ -474,14 +587,16 @@ strawb_fertilizers %>%
   geom_line(size = 1.2) +
   geom_point() +
   theme_minimal() +
-  labs(title = "Fertilizer Use Over Time", y = "Average Use", x = "Year") + 
-  theme(plot.title = element_text(hjust = 0.5))
+  labs(title = "Fertilizer Use Over Time", y = "Average Use", x = "Year")
 ```
-  
-For all fertilizers, there is a spiked trend upwards from mid to late 2010s which could mean some outliers in the data set.
+
+The line chart illustrates average fertilizer use in U.S. strawberry production from the late 1980s through 2023. Overall, fertilizer use generally increased from the 1990s to the mid-2010s, with Nitrogen and Potash consistently being the most heavily applied nutrients. These fertilizers are essential for strong plant growth, fruit size, and yield, which reflects the expanding commercial scale of strawberry farming over this period. Phosphate followed a similar but slightly lower trend, while Sulfur remained minimal until more recently, likely due to its use primarily for soil pH management and pest suppression rather than direct plant nutrition.
+
+A striking feature of the graph is the sharp spike across all fertilizer types around 2018–2019, followed by a sudden drop by 2021. This pattern appears to be driven by the structure of the data set rather than true agronomic behavior specifically, those years include unusually high reported values from California, the nation’s top strawberry-producing state, paired with fewer reporting observations. The smaller denominator inflated the calculated average, creating an artificial spike. Once more states reported again or missing values returned, the average dropped back to typical levels. In reality, fertilizer practices tend to change gradually, so sudden jumps like this should be interpreted cautiously.
+
+Beyond data artifacts, fertilizer use trends reflect evolving farming practices, higher yields demanded by consumers, and increased focus on soil health and environmental sustainability in recent years. The stabilization and slight decline after 2020 may relate to improved nutrient-efficiency programs, the rise of integrated pest and soil management, and increased interest in organic and reduced-input production.
 
 The data set captures fertilizer usage primarily in conventional strawberry production system where the fertilizers are applied. In contrast, organic strawberry systems rely on nutrient source like composted manure or mineral sulfur rather than synthetic chemicals. This distinction matters because organic fertilizer release nutrients slowly and improve soil health, while conventional systems enable rapid growth but may pose environmental risks such as nitrate leaching and reduced soil biodiversity.
-
 
 ```{r, warning = False}
 fert <- strawb_fertilizers %>%
@@ -508,7 +623,8 @@ fert %>%
   ) +
   theme(plot.title = element_text(hjust = 0.5))
 ```
-Explanation: 
+
+The graph above shows us the total fertilizer use by state, measured in pounds. The different colored lines represent the four fertilizer types. The graphs for North Carolina and New York have the shorted lines plotted. Furthermore we can see that California takes the lead in fertilizer use based on the values that lie on the y axis. There is a sharp increase in the usage of Potash around 2017/2018, with over 9 million pounds of it applied. 
 
 **Conclusion**
 
@@ -524,14 +640,8 @@ This report demonstrates the potential of fertilizer-use data to inform sustaina
 
 Sources to be cited:
 
--   U.S. Department of Agriculture (USDA). *Strawberry Chemical Use Survey Dataset,2025.*
-
--   Soil Science Society of America. *Nutrient Management and Environmental Impact.*
-
--   UC Davis Extension. *Fertilizer Management in Berry Production.*
-
 -   Yara: https://www.yara.com/knowledge-grows/five-important-facts-about-fertilizers/
 
 -   Mayo Clinic: https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/in-depth/organic-food/art-20043880
 
--   UMN: https://extension.umn.edu/manage-soil-nutrients/quick-guide-fertilizing-pla     nts#:\~:text=Plants%20lacking%20nitrogen%20will%20show,moisture%2C%20or%20damage     %20to%20roots.
+-   UMN: https://extension.umn.edu/manage-soil-nutrients/quick-guide-fertilizing-plants#:\~:text=Plants%20lacking%20nitrogen%20will%20show,moisture%2C%20or%20damage %20to%20roots.

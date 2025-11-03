@@ -10,11 +10,11 @@ drop_one_value_col <- function(df) {
     select(where(~ n_distinct(.) > 1))
   
   # Check if any columns were dropped and report
-  if (length(single_value_cols) == 0) {
-    print("No columns with only one unique value were found.")
-  } else {
-    print(paste("Columns dropped:", paste(single_value_cols, collapse = ", ")))
-  }
+  # if (length(single_value_cols) == 0) {
+  #   print("No columns with only one unique value were found.")
+  # } else {
+  #   print(paste("Columns dropped:", paste(single_value_cols, collapse = ", ")))
+  # }
   
   # Return the cleaned data frame
   return(cleaned_df)
