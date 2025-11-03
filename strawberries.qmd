@@ -508,28 +508,7 @@ fert %>%
   ) +
   theme(plot.title = element_text(hjust = 0.5))
 ```
-
-
-```{r, warning = False}
-fert_prop <- strawb_fertilizers %>%
-  group_by(Year, State, Fertilizer) %>%
-  summarise(total_value = sum(Value, na.rm = TRUE), .groups = "drop_last") %>%
-  mutate(proportion = total_value / sum(total_value)) %>%
-  ungroup()
-
-fert_prop %>%
-  ggplot(aes(x = Year, y = proportion, color = Fertilizer)) +
-  geom_line(size = 1.2) +
-  geom_point() +
-  facet_wrap(~State) +
-  theme_minimal() +
-  labs(
-    title = "Proportion of Fertilizer Use Over Time by State",
-    y = "Proportion of Total Use",
-    x = "Year"
-  ) +
-  theme(plot.title = element_text(hjust = 0.5))
-```
+Explanation: 
 
 **Conclusion**
 
