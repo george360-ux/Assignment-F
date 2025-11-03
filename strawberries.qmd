@@ -40,7 +40,7 @@ Strawberries are one of the most widely cultivated fruit crops in the United Sta
 
 <img src="images/strawberry plant.webp" alt="Alternative text" width="500px" style="display: block; margin: auto;">
 
-The United States Department of Agriculture (USDA) collects census and survey data regularly on all of the major crops grown in the United States. To analyze the strawberry crop, we will look at data collected by the USDA through census' and surveys from 1997 to 2025. We will focus on the six states that produce the majority of the strawberries consumed: California, Florida, Washington, Oregon, North Carolina and New York. The goal is to explore patterns, trends, and potential pros/cons of different fertilizer type including Nitrogen, Phosphate, Potash and Sulfur to understand how these inputs vary by geography and time.
+The United States Department of Agriculture (USDA) collects census and survey data regularly on all of the major crops grown in the United States. To analyze the strawberry crop, we will look at data collected by the USDA through census' and surveys from 1997 to 2025. We will focus on the six states that produce the majority of the strawberries consumed: California, Florida, Washington, Oregon, North Carolina and New York. The goal is to explore patterns, trends, and potential pros/cons of different fertilizer type including nitrogen, phosphate, potash and sulfur to understand how these inputs vary by geography and time.
 
 #### Our Research Process
 
@@ -571,7 +571,7 @@ fert_counts %>%
 
 <br>From this data, we can see that many fertilizers are used equally as often. Nitrogen, Phosphate, and Potash (Potassium) seem to be used an equal number of times across the different states in the data set. This aligns with our research.
 
-To further breakdown the fertilizer data, below we have a bar chart showing the average use of four fertilizer types — Nitrogen, Phosphate, Potash, and Sulfur — across the major U.S. strawberry-producing states.<br>
+To further breakdown the fertilizer data, below we have a bar chart showing the average use of four fertilizer types — nitrogen, phosphate, potash, and sulfur — across the major U.S. strawberry-producing states.<br>
 
 ```{r fig.align='center'}
 #| label: fertilizer by state graph
@@ -593,6 +593,7 @@ fert_by_state <- strawb_fertilizers_wide %>%
 
 ggplot(fert_by_state, aes(x = State, y = Mean_Lb, fill = Fertilizer)) +
   geom_col(position = "dodge") +
+  scale_y_continuous(labels = comma) +
   labs(title = "Average Fertilizer Use by State",
        y = "Average Pounds Applied", x = " ") +
   theme_minimal() +
@@ -602,7 +603,7 @@ ggplot(fert_by_state, aes(x = State, y = Mean_Lb, fill = Fertilizer)) +
   ) 
 ```
 
-From this graph, we see that California stands out as the dominant user by a very large margin, applying millions of pounds of each fertilizer, which reflects its role as the country’s largest strawberry producer by far. Florida ranks second, though at a much smaller scale, followed by Oregon, North Carolina, Washington, and New York. Nitrogen and Potash appear to be the most heavily used fertilizers across states, suggesting their key role in boosting plant growth and fruit production. Sulfur is used much less often, likely due to more specific soil needs. This pattern indicates that strawberry cultivation intensity and climate conditions vary significantly across regions, with California’s year-round production driving greater fertilizer demand.
+From this graph, we see that California stands out as the dominant user by a very large margin, applying millions of pounds of each fertilizer, which reflects its role as the country’s largest strawberry producer by far. Florida ranks second, though at a much smaller scale, followed by Oregon, North Carolina, Washington, and New York. Nitrogen and potash appear to be the most heavily used fertilizers across states, suggesting their key role in boosting plant growth and fruit production. Sulfur is used much less often, likely due to more specific soil needs. This pattern indicates that strawberry cultivation intensity and climate conditions vary significantly across regions, with California’s year-round production driving greater fertilizer demand.
 
 The line chart below illustrates average fertilizer use in U.S. strawberry production from the late 1980s through 2023. 
 
@@ -616,6 +617,7 @@ strawb_fertilizers %>%
   summarise(mean_value = mean(Value, na.rm = TRUE), .groups = "drop") %>%
   ggplot(aes(x = Year, y = mean_value, color = Fertilizer)) +
   geom_line(size = 1.2) +
+  scale_y_continuous(labels = comma) +
   scale_color_brewer(palette = "Set2") +
   geom_point() +
   theme_minimal() +
@@ -623,7 +625,7 @@ strawb_fertilizers %>%
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-Overall, fertilizer use generally increased from the 1990s to the mid-2010s, with Nitrogen and Potash consistently being the most heavily applied nutrients. These fertilizers are essential for strong plant growth, fruit size, and yield, which reflects the expanding commercial scale of strawberry farming over this period. Phosphate followed a similar but slightly lower trend, while Sulfur remained minimal until more recently, likely due to its use primarily for soil pH management and pest suppression rather than direct plant nutrition.
+Overall, fertilizer use generally increased from the 1990s to the mid-2010s, with Nitrogen and Potash consistently being the most heavily applied nutrients. These fertilizers are essential for strong plant growth, fruit size, and yield, which reflects the expanding commercial scale of strawberry farming over this period. Phosphate followed a similar but slightly lower trend, while sulfur remained minimal until more recently, likely due to its use primarily for soil pH management and pest suppression rather than direct plant nutrition.
 
 A striking feature of the graph is the sharp spike across all fertilizer types around 2018–2019, followed by a sudden drop by 2021. This pattern appears to be driven by the structure of the data set rather than true agronomic behavior specifically, those years include unusually high reported values from California, the nation’s top strawberry-producing state, paired with fewer reporting observations. The smaller denominator inflated the calculated average, creating an artificial spike. Once more states reported again or missing values returned, the average dropped back to typical levels. In reality, fertilizer practices tend to change gradually, so sudden jumps like this should be interpreted cautiously.
 
@@ -658,17 +660,17 @@ fert %>%
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-This graph shows us the total fertilizer use by state, measured in pounds. The different colored lines represent the four fertilizer types. The graphs for North Carolina and New York have the shortest lines plotted. Furthermore, we can see that California takes the lead in fertilizer use based on the values that lie on the y axis. There is a sharp increase in the usage of Potash around 2017/2018, with over 9 million pounds of it applied. However, this could be an issue in the data as described above.
+This graph shows us the total fertilizer use by state, measured in pounds. The different colored lines represent the four fertilizer types. The graphs for North Carolina and New York have the shortest lines plotted, which could indicate incomplete data. Furthermore, we can see that California takes the lead in fertilizer use based on the y-axis values associated with the graph. They are higher than any of the other state graphs. There is a sharp increase in the usage of potash around 2017/2018, with over 9 million pounds of it applied. However, this could be an issue in the data as described above.
 
 ## Conclusion
 
-From the data, we see that strawberries are a highly cultivated fruit crop in the United States, with production heavily concentrated in California and Florida. With the growing population of the United States, farmers depend on fertilizers to supply essential plant nutrients to sustain these high yields and good quality. These fertilizers are used across all states, but the intensity is highest in the states with the highest production. In terms of the specific fertilizers, nitrogen and potash dominate national usage, but the fertilizers show correlated application patterns, which follows the research that each has a different purpose for the crop. 
+From the data, we see that strawberries are a highly cultivated fruit crop in the United States, with production heavily concentrated in California and Florida. With the growing population of the United States, farmers depend on fertilizers to supply essential plant nutrients to sustain these high yields and ensure good quality. These fertilizers are used across all states, but the intensity is highest in the states with the highest production. In terms of the specific fertilizers, nitrogen and potash dominate national usage, but the fertilizers show correlated application patterns, which follows the research that each has a different purpose for the crop. 
 
 Beyond data artifacts, fertilizer use trends reflect evolving farming practices, higher yields demanded by consumers, and increased focus on soil health and environmental sustainability in recent years. The stabilization and slight decline after 2020 may relate to improved nutrient-efficiency programs, the rise of integrated pest and soil management, and increased interest in organic and reduced-input production.
 
-The data set captures fertilizer usage primarily in conventional strawberry production system where the fertilizers are applied. In contrast, organic strawberry systems rely on nutrient source like composted manure or mineral sulfur rather than synthetic chemicals. This distinction matters because organic fertilizer release nutrients slowly and improve soil health, while conventional systems enable rapid growth but may pose environmental risks such as nitrate leaching and reduced soil biodiversity.
+The data set captures fertilizer usage primarily in the conventional strawberry production system where the fertilizers are applied. In contrast, organic strawberry systems rely on nutrient sources like composted manure or mineral sulfur rather than synthetic chemicals. This distinction matters because organic fertilizers release nutrients slowly and improve soil health, while conventional systems enable rapid growth, but may pose environmental risks such as nitrate leaching and reduced soil biodiversity.
 
-This report demonstrates the potential of fertilizer-use data to inform sustainability discussion in agriculture. However, a complete understanding of pros and cons requires linking fertilizer to other variables such as yield, soil quality, and economic return. Future analyses should incorporate these dimensions, along with spatial or weather data to assess fertilizer efficiency and environmental performance more directly. Future steps are our group continue with our analysis is to include linking fertilizer inputs to yield and environmental indicators to evaluate efficiency and sustainability discussions in agriculture.
+This report demonstrates the potential of fertilizer-use data to inform sustainability discussion in agriculture. However, a complete understanding of pros and cons requires linking fertilizer to other variables such as yield, soil quality, and economic return. Future analyses should incorporate these dimensions, along with spatial or weather data to assess fertilizer efficiency and environmental performance more directly. Future work should focus on analyzing the relationship between fertilizer use, crop yields, and environmental indicators to better evaluate agricultural efficiency and sustainability.
 
 
 ## Sources
