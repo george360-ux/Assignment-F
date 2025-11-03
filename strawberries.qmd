@@ -566,6 +566,7 @@ fert_by_state <- strawb_fertilizers_wide %>%
 
 ggplot(fert_by_state, aes(x = State, y = Mean_Lb, fill = Fertilizer)) +
   geom_col(position = "dodge") +
+  scale_y_continuous(labels = comma) +
   labs(title = "Average Fertilizer Use by State",
        y = "Average Pounds Applied", x = "State") +
   theme_minimal() +
