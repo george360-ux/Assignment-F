@@ -1,7 +1,7 @@
 ---
 title: ""
 format: 
-  html:
+  html: 
     embed-resources: true
 editor: visual
 ---
@@ -26,19 +26,17 @@ library(kableExtra)
 source("Functions.R")
 ```
 
-## Production of Strawberries and Fertilizer Use in the United States
+# Production of Strawberries and Fertilizer Use in the United States
 
 Researched by: George Acostalemus, Madeleine Livaudais, Yuan Wang Zhang
 
-<br>
+<img src="images/market.jpg" alt="Alternative text" width="500px" style="display: block; margin: auto;"/>
 
-<img src="images/market.jpg" alt="Alternative text" width="500px" style="display: block; margin: auto;">
-
-When you go the market and look in the produce section, you see all sorts of fruits and vegetables, but do you ever stop to think about where they are coming from or the farming process that got them there for you to purchase and consume? 
+When you go the market and look in the produce section, you see all sorts of fruits and vegetables, but do you ever stop to think about where they are coming from or the farming process that got them there for you to purchase and consume?
 
 Strawberries are one of the most widely cultivated fruit crops in the United States, with production heavily concentrated in states such as California and Florida. To sustain high yields and consistent quality, strawberry growers depend on fertilizers to supply essential plant nutrients. However, fertilizer use also raises important questions about environmental impact, soil health, and sustainability.
 
-<img src="images/strawberry plant.webp" alt="Alternative text" width="500px" style="display: block; margin: auto;">
+<img src="images/strawberry plant.webp" alt="Alternative text" width="500px" style="display: block; margin: auto;"/>
 
 The United States Department of Agriculture (USDA) collects census and survey data regularly on all of the major crops grown in the United States. To analyze the strawberry crop, we will look at data collected by the USDA through census' and surveys from 1997 to 2025. We will focus on the six states that produce the majority of the strawberries consumed: California, Florida, Washington, Oregon, North Carolina and New York. The goal is to explore patterns, trends, and potential pros/cons of different fertilizer type including nitrogen, phosphate, potash and sulfur to understand how these inputs vary by geography and time.
 
@@ -54,20 +52,19 @@ We begin by cleaning and structuring the data to ensure technical correctness, t
 
 -   Relationships among fertilizer types
 
-The approach follows a structured analytically strategy: 
+The approach follows a structured analytically strategy:
 
 1.  Clean → 2. Explore → 3. Interpret → 4. Report
 
 The purpose of the exploratory data analysis is to not draw conclusion, but to hopefully have a better understanding on how fertilizer use reflects broader management practices in strawberry agriculture. The results can serve as a foundation for future work linking fertilizer management to yield, soil health and environmental sustainability.
 
-
 ## What is in plant fertilizer?
 
-<img src="images/fertilizer .webp" alt="Alternative text" width="500px" style="display: block; margin: auto;">
+<img src="images/fertilizer .webp" alt="Alternative text" width="500px" style="display: block; margin: auto;"/>
 
 Fertilizer use is a key input determining yield because, just like humans, plants need essential nutrients to thrive. The most important nutrients are carbon, hydrogen, and oxygen. Plants get these naturally though from the air and water. The other necessary nutrients are obtained from soil, but sometimes the soil isn't naturally nutrient-dense, and the plants need supplemental nutrients. The critical nutrients are the macro nutrients: nitrogen, phosphorus, potassium, calcium, sulfur, magnesium, and the micro nutrients iron, boron, chlorine, manganese, zinc, copper, molybdenum, and nickel.
 
-Our data on the use of fertilizer on strawberry crops focuses on the four macro nutrients below. Here is the main purpose of each: 
+Our data on the use of fertilizer on strawberry crops focuses on the four macro nutrients below. Here is the main purpose of each:
 
 | Chemical | Role | Typical Form | Organic Status |
 |------------------|------------------|------------------|------------------|
@@ -76,8 +73,7 @@ Our data on the use of fertilizer on strawberry crops focuses on the four macro 
 | Potash (K) | Disease resistance | Potassium chloride or Sulfate | Natural forms like potassium from mineral sources can be organic |
 | Sulfur (S) | Disease control | Elemental sulfur | Allows in organic systems if naturally derived |
 
-For a bit more detail, Nitrogen promotes leafy growth and overall plant vigor, but can cause environmental runoff issues if over-applied. Phosphate supports root development and early growth, though excessive use can lead to water pollution. Potash improves fruit size, sweetness, and disease resistance, while sulfur helps regulate soil pH and supports nutrient uptake. 
-
+For a bit more detail, Nitrogen promotes leafy growth and overall plant vigor, but can cause environmental runoff issues if over-applied. Phosphate supports root development and early growth, though excessive use can lead to water pollution. Potash improves fruit size, sweetness, and disease resistance, while sulfur helps regulate soil pH and supports nutrient uptake.
 
 ## What constitutes organic produce?
 
@@ -85,21 +81,19 @@ For a crop to be considered organic, there are certain conditions that need to b
 
 For a product to have the USDA Organic seal, the product must have more than 95% certified organic ingredients. One of the biggest differences is that organic produce is exposed to fewer toxic pesticides and chemicals during the growing process.
 
-<img src="images/Organic-Percentages.webp" alt="Alternative text" width="500px" style="display: block; margin: auto;">
-
+<img src="images/Organic-Percentages.webp" alt="Alternative text" width="500px" style="display: block; margin: auto;"/>
 
 ## Can fertilizer be used on conventional and organic strawberries?
 
 Since all four of these nutrients are essential for crop growth, they are used by farmers growing conventional and organic strawberries. Organic strawberry farms may also use fertilizers, but they must come from natural sources (e.g., compost, fish emulsion, mined minerals), whereas conventional farms can use synthetic fertilizers. This explains why some fertilizer categories appear across both systems, although organic volumes tend to be lower.
 
-<img src="images/fertilizer types.jpg" alt="Alternative text" width="500px" style="display: block; margin: auto;">
+<img src="images/fertilizer types.jpg" alt="Alternative text" width="500px" style="display: block; margin: auto;"/>
 
 Inorganic fertilizers are typically manufactured, water-soluble products and are not carbon-based. They generally tend to be cheaper due to their manufacturing process and have easy calculations to determine the application rate. Depending on the form of the fertilizer, a liquid fertilizer will have quicker absorption or a slow-release pellet will release nutrients over time. One of the negatives to inorganic fertilizers is that some of the synthetic compounds used can cause environmental harm through leaching or runoff.
 
 Organic fertilizers, on the other hand, are typically derived from living organisms and are carbon-based. Some fertilizers might be derived from fish emulsion or blood meal as the base. Since they are derived from these living organisms, organic fertilizers are generally more expensive and considered to be slow-release. This is because the soil needs a couple of days to weeks to transform the organic nutrients into a form the plants can more readily absorb. Because of this, it can be difficult to calculate application rates with precision. One of the negatives of organic fertilizer is that it may contain weeds or pathogens, like Salmonella, since both can be found in the various living organisms that the fertilizer is derived from.
 
 While the choice of fertilizer is important, it is still recommended to add other organic materials to help support the soil, specifically carbon-based materials like compost or grass clippings. Items like these or other ground cover can help plants receive the other macro and micro nutrients needed for healthy growth.
-
 
 ## Why is fertilizer important?
 
@@ -463,7 +457,6 @@ strawb_fertilizers_wide <- strawb_fertilizers %>%
 
 ```
 
-
 ```{r}
 #| label: write clean data sets
 #| warning: false
@@ -475,7 +468,6 @@ write.csv(strawb_organic, "clean_strawberry_organic.csv")
 write.csv(strawb_fertilizers, "clean_strawberry_fertilizers.csv")
 
 ```
-
 
 ## Visualizations of the Data
 
@@ -546,12 +538,12 @@ p2 <- ggplot(data = production_data_o, aes(x = Year, y = Value, color = State)) 
 
 ```
 
-Both of these graphs clearly show us that California is the largest producer of conventional and organic strawberries in the United States. Florida is the second largest producer, but significantly behind California. The rest of the states have very low production compared to California and Florida. There are some years in the lowest producing states that are missing; however, we do not think it changes the message of this graph. 
+Both of these graphs clearly show us that California is the largest producer of conventional and organic strawberries in the United States. Florida is the second largest producer, but significantly behind California. The rest of the states have very low production compared to California and Florida. There are some years in the lowest producing states that are missing; however, we do not think it changes the message of this graph.
 
 #### Fertilizer Use by State
 
 Now let's look at fertilizer use. Here is a quick overview of the fertilizer types we will analyze.
-
+<br>
 ```{r}
 #| label: fertilizer types table
 #| warning: false
@@ -565,7 +557,7 @@ fert_counts %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), 
                 full_width = FALSE) %>% 
   # You can add more styling functions here, e.g., column_spec
-  column_spec(2, bold = TRUE, color = "white", background = "steelblue") # Example: style the 'n' column
+  column_spec(2, bold = TRUE, color = "white", background = "blue") # Example: style the 'n' column
 
 ```
 
@@ -605,7 +597,7 @@ ggplot(fert_by_state, aes(x = State, y = Mean_Lb, fill = Fertilizer)) +
 
 From this graph, we see that California stands out as the dominant user by a very large margin, applying millions of pounds of each fertilizer, which reflects its role as the country’s largest strawberry producer by far. Florida ranks second, though at a much smaller scale, followed by Oregon, North Carolina, Washington, and New York. Nitrogen and potash appear to be the most heavily used fertilizers across states, suggesting their key role in boosting plant growth and fruit production. Sulfur is used much less often, likely due to more specific soil needs. This pattern indicates that strawberry cultivation intensity and climate conditions vary significantly across regions, with California’s year-round production driving greater fertilizer demand.
 
-The line chart below illustrates average fertilizer use in U.S. strawberry production from the late 1980s through 2023. 
+The line chart below illustrates average fertilizer use in U.S. strawberry production from the late 1980s through 2023.
 
 ```{r fig.align='center'}
 #| label: fertilizer overall graph
@@ -621,7 +613,7 @@ strawb_fertilizers %>%
   scale_color_brewer(palette = "Set2") +
   geom_point() +
   theme_minimal() +
-  labs(title = "Fertilizer Use Over Time", y = "Average Use", x = "Year")+
+  labs(title = "Fertilizer Use Over Time", y = "Average Use (in pounds)", x = "Year")+
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
@@ -629,7 +621,7 @@ Overall, fertilizer use generally increased from the 1990s to the mid-2010s, wit
 
 A striking feature of the graph is the sharp spike across all fertilizer types around 2018–2019, followed by a sudden drop by 2021. This pattern appears to be driven by the structure of the data set rather than true agronomic behavior specifically, those years include unusually high reported values from California, the nation’s top strawberry-producing state, paired with fewer reporting observations. The smaller denominator inflated the calculated average, creating an artificial spike. Once more states reported again or missing values returned, the average dropped back to typical levels. In reality, fertilizer practices tend to change gradually, so sudden jumps like this should be interpreted cautiously.
 
-For a final graph, below is a breakdown by state of fertilizer applications (in lbs) over time. 
+For a final graph, below is a breakdown by state of fertilizer applications (in lbs) over time.
 
 ```{r fig.align='center'}
 #| label: fertilizer by state individual graphs
@@ -664,14 +656,13 @@ This graph shows us the total fertilizer use by state, measured in pounds. The d
 
 ## Conclusion
 
-From the data, we see that strawberries are a highly cultivated fruit crop in the United States, with production heavily concentrated in California and Florida. With the growing population of the United States, farmers depend on fertilizers to supply essential plant nutrients to sustain these high yields and ensure good quality. These fertilizers are used across all states, but the intensity is highest in the states with the highest production. In terms of the specific fertilizers, nitrogen and potash dominate national usage, but the fertilizers show correlated application patterns, which follows the research that each has a different purpose for the crop. 
+From the data, we see that strawberries are a highly cultivated fruit crop in the United States, with production heavily concentrated in California and Florida. With the growing population of the United States, farmers depend on fertilizers to supply essential plant nutrients to sustain these high yields and ensure good quality. These fertilizers are used across all states, but the intensity is highest in the states with the highest production. In terms of the specific fertilizers, nitrogen and potash dominate national usage, but the fertilizers show correlated application patterns, which follows the research that each has a different purpose for the crop.
 
 Beyond data artifacts, fertilizer use trends reflect evolving farming practices, higher yields demanded by consumers, and increased focus on soil health and environmental sustainability in recent years. The stabilization and slight decline after 2020 may relate to improved nutrient-efficiency programs, the rise of integrated pest and soil management, and increased interest in organic and reduced-input production.
 
 The data set captures fertilizer usage primarily in the conventional strawberry production system where the fertilizers are applied. In contrast, organic strawberry systems rely on nutrient sources like composted manure or mineral sulfur rather than synthetic chemicals. This distinction matters because organic fertilizers release nutrients slowly and improve soil health, while conventional systems enable rapid growth, but may pose environmental risks such as nitrate leaching and reduced soil biodiversity.
 
 This report demonstrates the potential of fertilizer-use data to inform sustainability discussion in agriculture. However, a complete understanding of pros and cons requires linking fertilizer to other variables such as yield, soil quality, and economic return. Future analyses should incorporate these dimensions, along with spatial or weather data to assess fertilizer efficiency and environmental performance more directly. Future work should focus on analyzing the relationship between fertilizer use, crop yields, and environmental indicators to better evaluate agricultural efficiency and sustainability.
-
 
 ## Sources
 
@@ -683,9 +674,9 @@ Data Source: [USDA Quickstats](https://quickstats.nass.usda.gov/)
 
 [Mayo Clinic](https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/in-depth/organic-food/art-20043880)
 
-[University of Minnesota Extension](https://extension.umn.edu/manage-soil-nutrients/quick-guide-fertilizing-plants#:\~:text=Plants%20lacking%20nitrogen%20will%20show,moisture%2C%20or%20damage%20%20to%20roots)
+[University of Minnesota Extension](https://extension.umn.edu/manage-soil-nutrients/quick-guide-fertilizing-plants#:~:text=Plants%20lacking%20nitrogen%20will%20show,moisture%2C%20or%20damage%20%20to%20roots)
 
-#### Images Used: 
+#### Images Used:
 
 [Image 1: Market](https://www.foodsafety.gov/blog/shopping-farmers-market-food-safety-mind)
 
