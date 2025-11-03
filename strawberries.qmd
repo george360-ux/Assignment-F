@@ -1,8 +1,6 @@
 ---
-title: ""
-format: 
-  html:
-    embed-resources: true
+title: "Production of Strawberries and Fertilizer Use in the United States"
+format: pdf
 editor: visual
 ---
 
@@ -565,7 +563,7 @@ fert_counts %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), 
                 full_width = FALSE) %>% 
   # You can add more styling functions here, e.g., column_spec
-  column_spec(2, bold = TRUE, color = "white", background = "steelblue") # Example: style the 'n' column
+  column_spec(2, bold = TRUE, color = "white", background = "blue") # Example: style the 'n' column
 
 ```
 
