@@ -58,14 +58,14 @@ The approach follows a structured analytically strategy:
 
 1.  Clean → 2. Explore → 3. Interpret → 4. Report
 
-The purpose of the exploratory data analysis is to not draw conclusion but to hopefully have a better understanding on how fertilizer use reflects broader management practices in strawberry agriculture. The results can serve as a foundation for future work linking fertilizer management to yield, soil health and environmental sustainability.
+The purpose of the exploratory data analysis is to not draw conclusion, but to hopefully have a better understanding on how fertilizer use reflects broader management practices in strawberry agriculture. The results can serve as a foundation for future work linking fertilizer management to yield, soil health and environmental sustainability.
 
 
 ## What is in plant fertilizer?
 
 <img src="images/fertilizer .webp" alt="Alternative text" width="500px" style="display: block; margin: auto;">
 
-Fertilizer use is a key input determining yield because, just like humans, plants need essential nutrients to thrive. The most important nutrients are carbon, hydrogen, and oxygen. Plants get these naturally though from the air and water. The other necessary nutrients are obtained from soil, but sometimes the soil isn't naturally nutrient-dense, and the plants need supplemental nutrients. The critical nutrients are the macro nutrients nitrogen, phosphorus, potassium, calcium, sulphur, magnesium, and the micro nutrients iron, boron, chlorine, manganese, zinc, copper, molybdenum, and nickel.
+Fertilizer use is a key input determining yield because, just like humans, plants need essential nutrients to thrive. The most important nutrients are carbon, hydrogen, and oxygen. Plants get these naturally though from the air and water. The other necessary nutrients are obtained from soil, but sometimes the soil isn't naturally nutrient-dense, and the plants need supplemental nutrients. The critical nutrients are the macro nutrients: nitrogen, phosphorus, potassium, calcium, sulfur, magnesium, and the micro nutrients iron, boron, chlorine, manganese, zinc, copper, molybdenum, and nickel.
 
 Our data on the use of fertilizer on strawberry crops focuses on the four macro nutrients below. Here is the main purpose of each: 
 
@@ -76,7 +76,7 @@ Our data on the use of fertilizer on strawberry crops focuses on the four macro 
 | Potash (K) | Disease resistance | Potassium chloride or Sulfate | Natural forms like potassium from mineral sources can be organic |
 | Sulfur (S) | Disease control | Elemental sulfur | Allows in organic systems if naturally derived |
 
-For a bit more detail, Nitrogen promotes leafy growth and overall plant vigor but can cause environmental runoff issues if over-applied. Phosphate supports root development and early growth, though excessive use can lead to water pollution. Potash improves fruit size, sweetness, and disease resistance, while Sulfur helps regulate soil pH and supports nutrient uptake. 
+For a bit more detail, Nitrogen promotes leafy growth and overall plant vigor, but can cause environmental runoff issues if over-applied. Phosphate supports root development and early growth, though excessive use can lead to water pollution. Potash improves fruit size, sweetness, and disease resistance, while sulfur helps regulate soil pH and supports nutrient uptake. 
 
 
 ## What constitutes organic produce?
@@ -96,16 +96,14 @@ Since all four of these nutrients are essential for crop growth, they are used b
 
 Inorganic fertilizers are typically manufactured, water-soluble products and are not carbon-based. They generally tend to be cheaper due to their manufacturing process and have easy calculations to determine the application rate. Depending on the form of the fertilizer, a liquid fertilizer will have quicker absorption or a slow-release pellet will release nutrients over time. One of the negatives to inorganic fertilizers is that some of the synthetic compounds used can cause environmental harm through leaching or runoff.
 
-Organic fertilizers on the other hand are typically derived from living organisms and are carbon-based. Some fertilizers might be derived from fish emulsion or blood meal as the base. Since they are derived from these living organisms, organic fertilizers are generally more expensive and considered to be slow-release. This is because the soil needs a couple of days to weeks to transform the organic nutrients into a form the plants can more readily absorb. Because of this, it can be difficult to calculate application rates with precision. One of the negatives of organic fertilizer is that it may contain weeds or pathogens, like Salmonella, since both can be found in the various living organisms that the fertilizer is derived from.
+Organic fertilizers, on the other hand, are typically derived from living organisms and are carbon-based. Some fertilizers might be derived from fish emulsion or blood meal as the base. Since they are derived from these living organisms, organic fertilizers are generally more expensive and considered to be slow-release. This is because the soil needs a couple of days to weeks to transform the organic nutrients into a form the plants can more readily absorb. Because of this, it can be difficult to calculate application rates with precision. One of the negatives of organic fertilizer is that it may contain weeds or pathogens, like Salmonella, since both can be found in the various living organisms that the fertilizer is derived from.
 
 While the choice of fertilizer is important, it is still recommended to add other organic materials to help support the soil, specifically carbon-based materials like compost or grass clippings. Items like these or other ground cover can help plants receive the other macro and micro nutrients needed for healthy growth.
 
 
 ## Why is fertilizer important?
 
-Fertilizer plays a vital role in strawberry farming by supplying essential nutrients for plant growth, improving soil fertility, and increasing fruit yield and quality. Nitrogen fertilizer specifically was created by Sam Eyde and Kristian Birkeland in December of 1905. This invention changed agriculture production and has contributed to the high crop yields of today. The possibility of feeding the growing population of the world is thanks to fertilizer improvements. Planting crops depletes the soil, and the fertilizers help replenish it to ensure that future crops have a good foundation for growth.
-
-
+Fertilizers play a vital role in strawberry farming by supplying essential nutrients, improving soil fertility, and enhancing fruit yield and quality. Nitrogen fertilizer, invented by Sam Eyde and Kristian Birkeland in 1905, revolutionized agricultural production and made today’s high crop yields possible. As crop cultivation depletes soil nutrients over time, fertilizers restore soil vitality and ensure a strong foundation for future harvests, helping sustain the world’s growing population.
 
 ## The Data Wrangling Process
 
@@ -189,7 +187,7 @@ strawb_census_wide <- strawb_census %>%
 
 The survey data is a bit more complicated because each state has a bit of variability in how they report the information. We will need to further split up the survey data by state. Recall, the states we are looking at are California, Florida, New York, North Carolina, Oregon, and Washington.
 
-Before making that split, we chose to remove the rows where the data was a forecast value. The rational behind this was that the actual year value was also provided. After that, we split the survey data up into a data frame for each of the six states and look at each separately.
+Before making that split, we chose to remove the rows where the data was a forecast value. The rationale behind this was that the actual year value was also provided. After that, we split the survey data up into a data frame for each of the six states and look at each separately.
 
 ```{r}
 #| label: remove "Forecast" rows from the dataset
