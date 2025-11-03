@@ -1,6 +1,6 @@
 ## Functions for the Strawberry Data Cleaning
 
-
+## Function 1 -- to drop a column where it is entirely one matching value.
 drop_one_value_col <- function(df) {
   # Find column names to be dropped
   single_value_cols <- names(df)[sapply(df, n_distinct) == 1]
@@ -20,26 +20,26 @@ drop_one_value_col <- function(df) {
   return(cleaned_df)
 }
 
-
-
+## Function 2 -- to drop duplicate rows where the value is the same but the 
+## period is different
 drop_duplicate_rows <- function(df) {
   # Step 1: Identify "conflicting" rows where State, Year, Data Item are the same
   # but Period or Value differ.
   conflicts <- df %>%
     group_by(State, Year, `Data Item`) %>%
-    # Filter for groups that have more than one distinct Value or more than one distinct Period
     filter(n_distinct(Value) > 1 | n_distinct(Period) > 1) %>%
     ungroup()
   
   #  if (nrow(conflicts) > 0) {
-  #    message("Warning: Inconsistent rows detected. These rows have the same State, Year, and Data Item but conflicting Value or Period information.")
+  #    message("Warning: Inconsistent rows detected. These rows have 
+  #               conflicting Value or Period information.")
   #    print(conflicts)
   #  }
   
   # Step 2: Clean the data
   cleaned_df <- df %>%
     mutate(Period = str_replace(Period, "MARKETING YEAR", "YEAR")) %>%
-    group_by(across(-c(Period, Value))) %>% # group by everything except Period and Value
+    group_by(across(-c(Period, Value))) %>% 
     mutate(is_duplicate = n() > 1) %>% 
     ungroup() %>%
     mutate(Period = if_else(is_duplicate, "YEAR", Period)) %>%
