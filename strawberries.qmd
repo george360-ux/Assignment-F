@@ -465,9 +465,24 @@ strawb_fertilizers_wide <- strawb_fertilizers %>%
 
 ```
 
+
+```{r}
+#| label: write clean data sets
+#| warning: false
+#| echo: false
+
+write.csv(strawb_census, "clean_strawberry_census.csv")
+write.csv(strawb_survey, "clean_strawberry_survey.csv")
+write.csv(strawb_organic, "clean_strawberry_organic.csv")
+write.csv(strawb_fertilizers, "clean_strawberry_fertilizers.csv")
+
+```
+
+
 ## Visualizations of the Data
 
 #### Conventional vs. Organic Strawberry Production
+
 To get a general sense of strawberry production, we first created two graphs that show the comparison between conventional and organic strawberry production. The graph shows production over time in years (x-axis), and the amount of strawberries produced per one hundred pounds (y-axis).
 
 ```{r}
@@ -534,20 +549,6 @@ p2 <- ggplot(data = production_data_o, aes(x = Year, y = Value, color = State)) 
 ```
 
 Both of these graphs clearly show us that California is the largest producer of conventional and organic strawberries in the United States. Florida is the second largest producer, but significantly behind California. The rest of the states have very low production compared to California and Florida. There are some years in the lowest producing states that are missing; however, we do not think it changes the message of this graph. 
-
-
-```{r}
-#| label: write clean data sets
-#| warning: false
-#| echo: false
-
-write.csv(strawb_census, "clean_strawberry_census.csv")
-write.csv(strawb_survey, "clean_strawberry_survey.csv")
-write.csv(strawb_organic, "clean_strawberry_organic.csv")
-write.csv(strawb_fertilizers, "clean_strawberry_fertilizers.csv")
-
-```
-
 
 #### Fertilizer Use by State
 
@@ -663,24 +664,13 @@ This graph shows us the total fertilizer use by state, measured in pounds. The d
 
 ## Conclusion
 
-
+From the data, we see that strawberries are a highly cultivated fruit crop in the United States, with production heavily concentrated in California and Florida. With the growing population of the United States, farmers depend on fertilizers to supply essential plant nutrients to sustain these high yields and good quality. These fertilizers are used across all states, but the intensity is highest in the states with the highest production. In terms of the specific fertilizers, nitrogen and potash dominate national usage, but the fertilizers show correlated application patterns, which follows the research that each has a different purpose for the crop. 
 
 Beyond data artifacts, fertilizer use trends reflect evolving farming practices, higher yields demanded by consumers, and increased focus on soil health and environmental sustainability in recent years. The stabilization and slight decline after 2020 may relate to improved nutrient-efficiency programs, the rise of integrated pest and soil management, and increased interest in organic and reduced-input production.
 
 The data set captures fertilizer usage primarily in conventional strawberry production system where the fertilizers are applied. In contrast, organic strawberry systems rely on nutrient source like composted manure or mineral sulfur rather than synthetic chemicals. This distinction matters because organic fertilizer release nutrients slowly and improve soil health, while conventional systems enable rapid growth but may pose environmental risks such as nitrate leaching and reduced soil biodiversity.
 
 This report demonstrates the potential of fertilizer-use data to inform sustainability discussion in agriculture. However, a complete understanding of pros and cons requires linking fertilizer to other variables such as yield, soil quality, and economic return. Future analyses should incorporate these dimensions, along with spatial or weather data to assess fertilizer efficiency and environmental performance more directly. Future steps are our group continue with our analysis is to include linking fertilizer inputs to yield and environmental indicators to evaluate efficiency and sustainability discussions in agriculture.
-
--   Nitrogen and Potash dominate national usage
-
--   Fertilizer intensity is highest in major production states
-
--   Some fertilizers show correlated application patterns.
-
-
-
-
-
 
 
 ## Sources
